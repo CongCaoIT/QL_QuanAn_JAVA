@@ -4026,7 +4026,12 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jToolBar5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToolBar5MouseClicked
-        DoiMatKhau dmk = new DoiMatKhau();
+        DoiMatKhau dmk = null;
+        try {
+            dmk = new DoiMatKhau(login);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dmk.setVisible(true); 
         //this.dispose();
     }//GEN-LAST:event_jToolBar5MouseClicked

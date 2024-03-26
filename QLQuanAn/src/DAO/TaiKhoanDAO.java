@@ -28,35 +28,23 @@ public class TaiKhoanDAO {
     }
 
     public boolean Login(String tendangnhap, String matkhau) {
-        String query = "{call USP_Login(?, ?)}";
-        try (Connection conn = DataProvider.getInstance().getConnection(); CallableStatement stmt = conn.prepareCall(query)) {
-            stmt.setString(1, tendangnhap);
-            stmt.setString(2, matkhau);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+        String query = "SELECT * FROM TAIKHOAN WHERE TAIKHOAN.TENDANGNHAP = ? AND TAIKHOAN.MATKHAU = ?";
+        Object[] parameters = {tendangnhap, matkhau};
+        try {
+            ResultSet result = DataProvider.getInstance().executeQuery(query, parameters);
+            return result.next();
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
-
-//        String query = "SELECT * FROM TAIKHOAN WHERE TAIKHOAN.TENDANGNHAP = ? AND TAIKHOAN.MATKHAU = ?";
-//        Object[] parameters = {tendangnhap, matkhau};
-//        try {
-//            ResultSet result = DataProvider.getInstance().executeQuery(query, parameters);
-//            return result.next();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return false;
+        return false;
     }
 
     public TaiKhoanDTO layTKTheoTen(String tendangnhap) {
-        String query = "{call USP_GetAccountByUserName(?)}";
-        Object[] parameters = {tendangnhap};
+        String query = "SELECT * FROM TAIKHOAN WHERE TENDANGNHAP = ?";
+        Object[] paramaters = {tendangnhap};
 
-        try (Connection conn = DataProvider.getInstance().getConnection(); CallableStatement stmt = conn.prepareCall(query)) {
-            stmt.setString(1, tendangnhap);
-            ResultSet result = stmt.executeQuery();
+        try {
+            ResultSet result = DataProvider.getInstance().executeQuery(query, paramaters);
             if (result.next()) {
                 return new TaiKhoanDTO(result);
             }
@@ -64,18 +52,19 @@ public class TaiKhoanDAO {
             e.printStackTrace();
         }
         return null;
-
-//        String query = "SELECT * FROM TAIKHOAN WHERE TENDANGNHAP = ?";
-//        Object[] paramaters = {tendangnhap};
-//
-//        try {
-//            ResultSet result = DataProvider.getInstance().executeQuery(query, paramaters);
-//            if (result.next()) {
-//                return new TaiKhoanDTO(result);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
+    }
+    
+    public boolean ThayDoiMK(String tendangnhap, String matkhaucu, String matkhaumoi){
+         String query = "{call USP_ChangePassword(?, ?, ?)}";
+        try (Connection conn = DataProvider.getInstance().getConnection(); CallableStatement stmt = conn.prepareCall(query)) {
+            stmt.setString(1, tendangnhap);
+            stmt.setString(2, matkhaucu);
+            stmt.setString(3, matkhaumoi);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

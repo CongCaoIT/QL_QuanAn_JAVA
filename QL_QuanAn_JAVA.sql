@@ -284,3 +284,21 @@ AS
         SELECT * FROM TAIKHOAN WHERE @userName = TENDANGNHAP
     END
 GO
+
+--Thay đổi mật khẩu
+CREATE PROC USP_ChangePassword
+    @userName VARCHAR(50),
+    @password NVARCHAR(100),
+    @newPassword NVARCHAR(100)
+AS
+BEGIN
+    DECLARE @isRightPass INT = 0
+
+    SELECT @isRightPass = COUNT(*) FROM TAIKHOAN WHERE TENDANGNHAP = @userName AND MATKHAU = @password
+
+    IF(@isRightPass = 1)
+        BEGIN
+            UPDATE TAIKHOAN SET MATKHAU = @newPassword WHERE TENDANGNHAP = @userName
+        END
+END
+GO
