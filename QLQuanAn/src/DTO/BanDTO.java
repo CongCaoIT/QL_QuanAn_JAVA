@@ -1,0 +1,64 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package DTO;
+import java.sql.*;
+/**
+ *
+ * @author TAOPRO
+ */
+public class BanDTO {
+    private int maban;
+    private int soluongnguoi;
+    private String trangthai;
+    private boolean daxoa;
+
+    public BanDTO(int maban, int soluongnguoi, String trangthai, boolean daxoa) {
+        this.maban = maban;
+        this.soluongnguoi = soluongnguoi;
+        this.trangthai = trangthai;
+        this.daxoa = daxoa;
+    }
+    
+    public BanDTO(ResultSet rs) throws SQLException{
+        this.maban = rs.getInt("MABAN");
+        this.soluongnguoi = rs.getInt("SOLUONGNGUOI");
+        this.trangthai = rs.getString("TRANGTHAI");
+        this.daxoa = rs.getBoolean("DAXOA");
+    }
+
+    public int getMaban() {
+        return maban;
+    }
+
+    public void setMaban(int maban) {
+        this.maban = maban;
+    }
+
+    public int getSoluongnguoi() {
+        return soluongnguoi;
+    }
+
+    public void setSoluongnguoi(int soluongnguoi) {
+        this.soluongnguoi = soluongnguoi;
+    }
+
+    public String getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(String trangthai) {
+        this.trangthai = trangthai;
+    }
+
+    public boolean isDaxoa() {
+        return daxoa;
+    }
+
+    public void setDaxoa(boolean daxoa) {
+        this.daxoa = daxoa;
+    }
+    
+    
+}
