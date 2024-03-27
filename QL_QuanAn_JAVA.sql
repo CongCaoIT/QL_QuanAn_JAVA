@@ -162,7 +162,7 @@ CREATE TABLE CHITIETPHIEUNHAP
 GO
 
 INSERT INTO NHANVIEN(MANHANVIEN, HOTEN, PHAI, NGAYSINH, DIACHI, SDT, NGAYVAOLAM, LUONGCOBAN) VALUES
-('NV001', N'Cao Tấn Công', N'Nam', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 300000),
+('NV006', N'Cao Tấn Công', N'Nam', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 300000),
 ('NV005', N'Thanh Thảo', N'Nữ', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 100000)
 GO
 INSERT INTO TAIKHOAN(TENDANGNHAP, MANHANVIEN, TENHIENTHI, MATKHAU, TRANGTHAI) VALUES
@@ -301,4 +301,55 @@ BEGIN
             UPDATE TAIKHOAN SET MATKHAU = @newPassword WHERE TENDANGNHAP = @userName
         END
 END
+GO
+--Lấy danh sách tài khoản
+CREATE PROC USP_GetListAccount
+AS
+    BEGIN
+        SELECT * FROM TAIKHOAN
+    END
+GO
+--Lấy danh sách mã nhân viên
+CREATE PROC USP_GetListEmployee
+AS
+    BEGIN 
+        SELECT NHANVIEN.MANHANVIEN FROM NHANVIEN
+    END
+GO
+--Lấy danh sách tên nhân viên
+CREATE PROC USP_GetListNameEmployee
+AS
+    BEGIN 
+        SELECT TAIKHOAN.TENHIENTHI FROM TAIKHOAN
+    END
+GO
+
+--Lấy danh sách trạng thái tài khoản
+CREATE PROC USP_GetListStatus
+AS
+    BEGIN 
+        SELECT TAIKHOAN.TRANGTHAI FROM TAIKHOAN
+    END
+GO
+--Cài lại mật khẩu
+CREATE PROC USP_ResetPassWord
+    @userName VARCHAR(50)
+AS
+    BEGIN
+        UPDATE TAIKHOAN
+        SET MATKHAU = '1'
+        WHERE TENDANGNHAP = @userName
+    END
+GO
+--Thêm tài khoản
+CREATE PROC USP_InsertAccount
+    @userName VARCHAR(50),
+    @staffid VARCHAR(10),
+    @displayName NVARCHAR(50),
+    @status NVARCHAR(50)
+AS
+    BEGIN
+        INSERT INTO TAIKHOAN(TENDANGNHAP, MANHANVIEN, TENHIENTHI, MATKHAU, TRANGTHAI) VALUES
+        (@userName, @staffid, @displayName, '1', @status)
+    END
 GO

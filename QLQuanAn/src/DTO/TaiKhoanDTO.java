@@ -16,6 +16,8 @@ public class TaiKhoanDTO {
     private String trangthai;
     private boolean daxoa;
 
+    public TaiKhoanDTO(){}
+    
     public TaiKhoanDTO(String tendangnhap, String manhanvien, String tenhienthi, String matkhau, String trangthai, boolean daxoa) {
         this.tendangnhap = tendangnhap;
         this.manhanvien = manhanvien;
