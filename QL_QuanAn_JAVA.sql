@@ -162,11 +162,12 @@ CREATE TABLE CHITIETPHIEUNHAP
 GO
 
 INSERT INTO NHANVIEN(MANHANVIEN, HOTEN, PHAI, NGAYSINH, DIACHI, SDT, NGAYVAOLAM, LUONGCOBAN) VALUES
-('NV006', N'Cao Tấn Công', N'Nam', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 300000),
-('NV005', N'Thanh Thảo', N'Nữ', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 100000)
+('NV001', N'Cao Tấn Công', N'Nam', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 300000),
+('NV002', N'Thanh Thảo', N'Nữ', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 100000)
 GO
 INSERT INTO TAIKHOAN(TENDANGNHAP, MANHANVIEN, TENHIENTHI, MATKHAU, TRANGTHAI) VALUES
-('admin', 'NV001', N'ADMIN', '1',  N'Admin')
+('admin', 'NV001', N'ADMIN', '1',  N'Admin'),
+('TaoPro', 'NV002', N'Công Cao', '1',  N'Nhân viên')
 GO
 INSERT INTO LOAIMONAN(TENLOAIMONAN) VALUES
 (N'Hấp'),
@@ -351,5 +352,32 @@ AS
     BEGIN
         INSERT INTO TAIKHOAN(TENDANGNHAP, MANHANVIEN, TENHIENTHI, MATKHAU, TRANGTHAI) VALUES
         (@userName, @staffid, @displayName, '1', @status)
+    END
+GO
+--Lấy tài khoản bởi mã nhân viên
+CREATE PROC USP_GetAccountByStaffID
+    @staffid VARCHAR(10)
+AS
+    BEGIN
+        SELECT * FROM TAIKHOAN WHERE MANHANVIEN = @staffid
+    END
+GO
+--Xóa tài khoản
+CREATE PROC USP_DeleteAccount
+    @userName VARCHAR(50)
+AS
+    BEGIN
+        DELETE TAIKHOAN WHERE TENDANGNHAP = @userName
+    END
+GO
+--Sửa tài khoản
+CREATE PROC USP_UpdateAccount
+    @status NVARCHAR(50),
+    @userName VARCHAR(10)
+AS
+    BEGIN
+        UPDATE TAIKHOAN
+        SET TRANGTHAI = @status
+        WHERE TENDANGNHAP = @userName
     END
 GO

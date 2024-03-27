@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DataProvider {
 
     private static DataProvider instance;
-    String conStr = "jdbc:sqlserver://MSI-TAOPRO:1433;databaseName=QL_QUANAN_JAVA;encrypt=true;trustServerCertificate=true";
+    String conStr = "jdbc:sqlserver://localhost:1433;databaseName=QL_QUANAN_JAVA;encrypt=true;trustServerCertificate=true";
     String userName = "sa";
     String password = "123";
 

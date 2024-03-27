@@ -29,7 +29,7 @@ public class TaiKhoanDTO {
     
     public TaiKhoanDTO(ResultSet rs) throws SQLException{
         this.tendangnhap = rs.getString("TENDANGNHAP");
-        this.tenhienthi = rs.getString("MANHANVIEN");
+        this.manhanvien = rs.getString("MANHANVIEN");
         this.tenhienthi = rs.getString("TENHIENTHI");
         this.matkhau = rs.getString("MATKHAU");
         this.trangthai = rs.getString("TRANGTHAI");

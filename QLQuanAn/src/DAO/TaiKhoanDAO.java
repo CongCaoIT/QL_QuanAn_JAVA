@@ -160,4 +160,43 @@ public class TaiKhoanDAO {
         }
         return false;
     }
+    
+    public TaiKhoanDTO layDSTKtheoMaNV(String manhanvien) {
+        String query = "EXEC USP_GetAccountByStaffID ?";
+        Object[] paramaters = {manhanvien};
+
+        try {
+            ResultSet result = DataProvider.getInstance().executeQuery(query, paramaters);
+            if (result.next()) {
+                return new TaiKhoanDTO(result);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public boolean deleteTK(String tendangnhap) {
+        String query = "EXEC USP_DeleteAccount ?";
+        Object[] parameters = {tendangnhap};
+        try {
+            int result = DataProvider.getInstance().executeNonQuery(query, parameters);
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean suaTK(String tendangnhap, String trangthai) {
+        String query = "EXEC USP_UpdateAccount ?";
+        Object[] parameters = {tendangnhap};
+        try {
+            int result = DataProvider.getInstance().executeNonQuery(query, parameters);
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
