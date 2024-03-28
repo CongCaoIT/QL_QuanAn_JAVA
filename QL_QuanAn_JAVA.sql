@@ -311,7 +311,7 @@ AS
     END
 GO
 --Lấy danh sách mã nhân viên
-CREATE PROC USP_GetListEmployee
+CREATE PROC USP_GetListEmployeeByID
 AS
     BEGIN 
         SELECT NHANVIEN.MANHANVIEN FROM NHANVIEN
@@ -379,5 +379,13 @@ AS
         UPDATE TAIKHOAN
         SET TRANGTHAI = @status
         WHERE TENDANGNHAP = @userName
+    END
+GO
+
+--Lấy danh sách nhân viên
+CREATE PROC USP_GetListEmployee
+AS
+    BEGIN
+        SELECT * FROM NHANVIEN WHERE DAXOA = 0
     END
 GO

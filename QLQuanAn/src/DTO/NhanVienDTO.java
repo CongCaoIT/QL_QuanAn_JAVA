@@ -34,6 +34,8 @@ public class NhanVienDTO {
         this.daxoa = rs.getBoolean("DAXOA");
     }
     
+    public NhanVienDTO(){}
+    
     public NhanVienDTO(String manhanvien, String hoten, String phai, Date ngaysinh, String diachi, String sdt, Date ngayvaolam, Double luongcoban, boolean daxoa) {
         this.manhanvien = manhanvien;
         this.hoten = hoten;

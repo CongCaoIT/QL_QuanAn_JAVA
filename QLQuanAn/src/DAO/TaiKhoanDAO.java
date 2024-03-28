@@ -92,7 +92,7 @@ public class TaiKhoanDAO {
     public List<String> layDSMaNhanVien() {
         List<String> listMaNhanVien = new ArrayList<>();
 
-        String query = "{call USP_GetListEmployee}";
+        String query = "{call USP_GetListEmployeeByID}";
         try (Connection conn = DataProvider.getInstance().getConnection(); CallableStatement stmt = conn.prepareCall(query); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
