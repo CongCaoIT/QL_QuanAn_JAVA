@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
 import java.sql.Connection;
@@ -17,9 +13,19 @@ import java.sql.SQLException;
 public class DataProvider {
 
     private static DataProvider instance;
-    String conStr = "jdbc:sqlserver://MSI-TAOPRO:1433;databaseName=QL_QUANAN_JAVA;encrypt=true;trustServerCertificate=true";
+    String conStr = "jdbc:sqlserver://LAPTOP-BB25USJG\\SQLEXPRESS:1433;databaseName=QL_QUANAN_JAVA;encrypt=true;trustServerCertificate=true";
     String userName = "sa";
-    String password = "123";
+    String password = "1";
+
+    // Đăng ký tên lớp của driver JDBC
+    static {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Cannot find the driver in the classpath!", e);
+        }
+    }
 
     public static DataProvider getInstance() {
         if (instance == null) {

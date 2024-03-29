@@ -44,6 +44,9 @@ CREATE TABLE BAN
 )
 GO
 
+--SELECT * FROM BAN
+--go
+
 CREATE TABLE HOADON
 (
     MAHOADON INT IDENTITY NOT NULL, 
@@ -69,6 +72,11 @@ CREATE TABLE NGUYENLIEU
 
     CONSTRAINT PK_NGUYENLIEU PRIMARY KEY(MANGUYENLIEU)
 )
+GO
+
+ALTER TABLE NGUYENLIEU
+ADD CONSTRAINT DF_NGUYENLIEU_SOLUONG
+DEFAULT 0 FOR SOLUONG;
 GO
 
 CREATE TABLE LOAIMONAN
@@ -109,6 +117,9 @@ CREATE TABLE CONGTHUC
     CONSTRAINT FK_CONGTHUC_MONAN FOREIGN KEY(MAMONAN) REFERENCES MONAN(MAMONAN)
 )
 GO
+
+SELECT * FROM CONGTHUC
+
 
 CREATE TABLE CHITIETHOADON
 (
@@ -182,6 +193,7 @@ INSERT INTO LOAIMONAN(TENLOAIMONAN) VALUES
 (N'Đồ uống cồn'),
 (N'Đồ uống không cồn')
 GO
+
 INSERT INTO MONAN(MALOAIMONAN, TENMONAN, DVT, DONGIA, HINHANH) VALUES
 (1, N'Gà hấp sả', N'Con', 150000, null),
 (1, N'Cá thu hấp', N'Con', 100000, null), 
@@ -241,6 +253,23 @@ INSERT INTO MONAN(MALOAIMONAN, TENMONAN, DVT, DONGIA, HINHANH) VALUES
 (12, N'Pepsi Lon', N'Lon', 25000, null),
 (12, N'CocaCola Lon', N'Lon', 25000, null)
 GO
+
+INSERT INTO CONGTHUC (MAMONAN, MANGUYENLIEU, SOLUONG, DONVI)
+VALUES
+(1, 2, 1, N'Con'),
+(1, 6, 2, N'Muỗn'),
+(1, 7, 1, N'Muỗng'),
+(1, 9, 2, N'Trái'),
+(2, 4, 1, N'Con'),
+(2, 6, 2, N'Muỗn'),
+(2, 7, 1, N'Muỗn'),
+(2, 9, 2, N'Trái'),
+(3, 4, 1, N'Con'),
+(3, 6, 2, N'Muỗn'),
+(3, 7, 1, N'Muỗn'),
+(3, 9, 2, N'Trái')
+GO
+
 INSERT INTO NGUYENLIEU(TENNGUYENLIEU, SOLUONG, DAXOA) VALUES
 (N'Gà', 1, 0),
 (N'Vịt',1,0),
@@ -262,6 +291,25 @@ INSERT INTO NGUYENLIEU(TENNGUYENLIEU, SOLUONG, DAXOA) VALUES
 (N'Nước mắm', 1, 0),
 (N'Giấm', 1, 0)
 GO
+
+INSERT INTO BAN (SOLUONGNGUOI, TRANGTHAI, DAXOA)
+VALUES (5, N'Trống', 0),
+       (5, N'Trống', 0),
+       (4, N'Trống', 0),
+       (4, N'Trống', 0),
+       (6, N'Trống', 0),
+       (6, N'Trống', 0),
+       (6, N'Trống', 0),
+       (6, N'Trống', 0),
+       (1, N'Trống', 0),
+       (1, N'Trống', 0),
+	   (2, N'Có người', 0),
+		(3, N'Có người', 0),
+		(4, N'Có người', 0),
+		(2, N'Có người', 0),
+		(3, N'Có người', 0);
+GO
+
 
 --Xử lý--
 
@@ -301,4 +349,246 @@ BEGIN
             UPDATE TAIKHOAN SET MATKHAU = @newPassword WHERE TENDANGNHAP = @userName
         END
 END
+GO
+
+--Xóa loại món ăn
+CREATE PROC USP_XoaLoaiMonAn
+    @maLoai INT
+AS
+    BEGIN
+        UPDATE LOAIMONAN
+        SET DAXOA = 1
+        WHERE MALOAIMONAN = @maLoai
+    END
+GO
+
+--Thêm loại món ăn
+CREATE PROC USP_ThemLoaiMonAn
+    @tenLoai NVARCHAR(50)
+AS
+    BEGIN
+        INSERT INTO LOAIMONAN(TENLOAIMONAN) VALUES
+        (@tenLoai)
+    END
+GO
+
+--Sửa loại món ăn
+CREATE PROC USP_SuaLoaiMonAn
+    @maLoai INT,
+    @tenLoai NVARCHAR(50)
+AS
+    BEGIN
+        UPDATE LOAIMONAN 
+        SET TENLOAIMONAN = @tenLoai WHERE MALOAIMONAN = @maLoai
+    END
+GO
+
+--Lấy mã theo tên loại món được chọn
+CREATE PROCEDURE USP_GetMaLoaiMonAnByTenLoai
+    @tenloai NVARCHAR(50)
+AS
+BEGIN
+    SELECT MALOAIMONAN 
+    FROM LOAIMONAN 
+    WHERE TENLOAIMONAN = @tenloai;
+END
+GO
+
+-- Lấy tên loại của món thông qua mã món
+CREATE PROC USP_LayTenLoaiTheoMaMon
+    @maMon INT
+AS
+    BEGIN
+        SELECT TENLOAIMONAN
+		FROM LOAIMONAN, MONAN
+		WHERE LOAIMONAN.MALOAIMONAN = MONAN.MALOAIMONAN AND MAMONAN = @maMon
+    END
+GO
+
+-- Lấy chi tiết công thức của món thông qua mã món
+--CREATE PROC USP_LayCTCongThucTheoMaMon
+--    @maMon INT
+--AS
+--    BEGIN
+--        SELECT MONAN.TENMONAN, NGUYENLIEU.TENNGUYENLIEU, CONGTHUC.SOLUONG
+--		FROM MONAN, CONGTHUC, NGUYENLIEU
+--		WHERE MONAN.MAMONAN = CONGTHUC.MAMONAN AND CONGTHUC.MANGUYENLIEU = NGUYENLIEU.MANGUYENLIEU AND MONAN.MAMONAN = @maMon
+--    END
+--GO
+--Thêm món ăn
+CREATE PROC USP_ThemMonAn
+	@maLoai INT,
+    @tenMon NVARCHAR(100), 
+    @unit NVARCHAR(20),
+    @gia DECIMAL(10, 2),
+    @images NVARCHAR(MAX)
+AS
+    BEGIN
+        INSERT INTO MONAN(MALOAIMONAN, TENMONAN, DVT, DONGIA, HINHANH) VALUES
+        (@maLoai, @tenMon, @unit, @gia, @images)
+    END
+GO
+
+--Sửa món ăn
+CREATE PROC USP_CapNhatMonAn
+    @maLoai INT,
+	@maMon INT,
+    @tenMon NVARCHAR(100), 
+    @unit NVARCHAR(20),
+    @gia DECIMAL(10, 2),
+    @images NVARCHAR(MAX)
+AS
+    BEGIN
+        UPDATE MONAN
+        SET MALOAIMONAN = @maLoai, TENMONAN = @tenMon, DVT = @unit, DONGIA = @gia, HINHANH = @images
+        WHERE MAMONAN = @maMon
+    END
+GO
+
+--Xóa món ăn
+CREATE PROC USP_XoaMonAn
+    @maMon INT
+AS
+    BEGIN
+        UPDATE MONAN
+        SET DAXOA = 1
+        WHERE MAMONAN = @maMon
+    END
+GO
+
+-- Lấy thông tin bàn thông qua mã bàn
+CREATE PROC USP_layTTTheoMaBan
+    @maBan INT
+AS
+    BEGIN
+        SELECT MABAN, SOLUONGNGUOI, TRANGTHAI
+		FROM BAN WHERE DAXOA = 0 AND MABAN = @maBan
+    END
+GO
+
+--Thêm bàn ăn
+CREATE PROC USP_ThemBan
+    @soLuongNguoi INT,
+    @trangThai NVARCHAR(50)
+AS
+    BEGIN
+        INSERT INTO BAN(SOLUONGNGUOI, TRANGTHAI) VALUES
+        (@soLuongNguoi, @trangThai)
+    END
+GO
+
+--Sửa thông tin bàn ăn
+CREATE PROC USP_CapNhatBan
+    @maBan INT,
+    @soLuong INT,
+    @trangThai NVARCHAR(50)
+AS
+    BEGIN
+        UPDATE BAN 
+        SET SOLUONGNGUOI = @soLuong, TRANGTHAI = @trangThai
+        WHERE MABAN = @maBan
+    END
+GO
+
+--Xóa thông tin bàn
+CREATE PROC USP_XoaBan
+    @maBan INT
+AS
+    BEGIN
+        UPDATE BAN
+        SET DAXOA = 1
+        WHERE MABAN = @maBan 
+    END
+GO
+
+-- Lấy ra mã món từ tên món được chọn
+CREATE PROC USP_LayMaMon
+	@tenMon NVARCHAR(100)
+AS
+	BEGIN
+		SELECT CONGTHUC.MAMONAN
+		FROM CONGTHUC, MONAN
+		WHERE CONGTHUC.MAMONAN = MONAN.MAMONAN AND MONAN.TENMONAN = @tenMon
+	END
+GO
+
+-- Lấy ra mã nguyên liệu từ tên nguyên được chọn
+CREATE PROC USP_LayMaNguyenLieu
+	@tenNguyenLieu NVARCHAR(100)
+AS
+	BEGIN
+		SELECT NGUYENLIEU.MANGUYENLIEU
+		FROM CONGTHUC, NGUYENLIEU
+		WHERE CONGTHUC.MANGUYENLIEU = NGUYENLIEU.MANGUYENLIEU AND NGUYENLIEU.TENNGUYENLIEU = @tenNguyenLieu
+	END
+GO
+
+--Thêm công thức
+CREATE PROC USP_ThemCongThuc
+	@maMon INT,
+	@maNgLieu INT,
+	@sL INT,
+	@donvi NVARCHAR(100)
+AS
+    BEGIN
+        INSERT INTO CONGTHUC (MAMONAN, MANGUYENLIEU, SOLUONG, DONVI) VALUES
+        (@maMon, @maNgLieu, @sL, @donvi)
+    END
+GO
+
+--Sửa công thức
+CREATE PROC USP_SuaCongThuc
+	@maMon INT,
+	@maNgLieu INT,
+	@sL INT,
+	@donvi NVARCHAR(100)
+AS
+    BEGIN
+        UPDATE CONGTHUC
+		SET SOLUONG =@sL, DONVI = @donvi
+		WHERE MAMONAN = @maMon AND MANGUYENLIEU = @maNgLieu
+    END
+GO
+
+--Xóa công thức
+CREATE PROC USP_XoaCongThuc
+    @maMon INT
+AS
+	BEGIN
+		DELETE FROM CONGTHUC 
+		WHERE MAMONAN = @maMon
+	END
+GO
+
+--Xóa nguyên liệu
+CREATE PROC USP_XoaNgLieu
+    @maNL INT
+AS
+    BEGIN
+        UPDATE NGUYENLIEU
+        SET DAXOA = 1
+        WHERE MANGUYENLIEU = @maNL
+    END
+GO
+
+--Thêm nguyên liệu
+CREATE PROC USP_ThemNgLieu
+    @tenNL NVARCHAR(100)
+AS
+    BEGIN
+        INSERT INTO NGUYENLIEU(TENNGUYENLIEU) VALUES
+        (@tenNL)
+    END
+GO
+
+--Sửa nguyên liệu
+CREATE PROC USP_CapNhatNgLieu
+    @maNL INT,
+    @tenNL NVARCHAR(100)
+AS
+    BEGIN
+        UPDATE NGUYENLIEU 
+        SET TENNGUYENLIEU = @tenNL
+        WHERE MANGUYENLIEU = @maNL
+    END
 GO

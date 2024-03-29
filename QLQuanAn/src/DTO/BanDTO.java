@@ -3,16 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DTO;
+
 import java.sql.*;
+
 /**
  *
  * @author TAOPRO
  */
 public class BanDTO {
+
     private int maban;
     private int soluongnguoi;
     private String trangthai;
     private boolean daxoa;
+
+    public BanDTO() {
+    }
 
     public BanDTO(int maban, int soluongnguoi, String trangthai, boolean daxoa) {
         this.maban = maban;
@@ -20,12 +26,15 @@ public class BanDTO {
         this.trangthai = trangthai;
         this.daxoa = daxoa;
     }
-    
-    public BanDTO(ResultSet rs) throws SQLException{
-        this.maban = rs.getInt("MABAN");
-        this.soluongnguoi = rs.getInt("SOLUONGNGUOI");
-        this.trangthai = rs.getString("TRANGTHAI");
-        this.daxoa = rs.getBoolean("DAXOA");
+
+    public BanDTO(ResultSet rs) {
+        try {
+            this.maban = rs.getInt("MABAN");
+            this.soluongnguoi = rs.getInt("SOLUONGNGUOI");
+            this.trangthai = rs.getString("TRANGTHAI");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public int getMaban() {
@@ -59,6 +68,5 @@ public class BanDTO {
     public void setDaxoa(boolean daxoa) {
         this.daxoa = daxoa;
     }
-    
-    
+
 }
