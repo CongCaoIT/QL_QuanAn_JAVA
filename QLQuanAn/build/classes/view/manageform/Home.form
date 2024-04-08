@@ -2917,7 +2917,6 @@
                                               </Group>
                                               <Component id="jLabel59" min="-2" pref="46" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel60" max="32767" attributes="0"/>
                                               <Component id="dateNgayVaoLam" min="-2" pref="46" max="-2" attributes="0"/>
@@ -3221,6 +3220,7 @@
                                 <Component class="com.toedter.calendar.JDateChooser" name="dateNgaySinh">
                                   <Properties>
                                     <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Segoe UI" size="18" style="0"/>
                                     </Property>
@@ -3229,6 +3229,7 @@
                                 <Component class="com.toedter.calendar.JDateChooser" name="dateNgayVaoLam">
                                   <Properties>
                                     <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Segoe UI" size="18" style="0"/>
                                     </Property>
@@ -3362,6 +3363,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemNVActionPerformed"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btnXoaNV">
                                   <Properties>
@@ -3404,6 +3408,9 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="T&#x1ea3;i l&#x1ea1;i"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoadNVActionPerformed"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btnHuyNV">
                                   <Properties>
@@ -3417,7 +3424,11 @@
                                       <Color blue="0" green="0" red="0" type="rgb"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyNVActionPerformed"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btnLuuNV">
                                   <Properties>
@@ -3431,7 +3442,11 @@
                                       <Color blue="0" green="0" red="0" type="rgb"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuNVActionPerformed"/>
+                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>

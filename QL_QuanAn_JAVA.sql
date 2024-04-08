@@ -389,3 +389,30 @@ AS
         SELECT * FROM NHANVIEN WHERE DAXOA = 0
     END
 GO
+
+--Lấy nhân viên bởi mã nhân viên
+CREATE PROC USP_GetEmployeeByStaffID
+    @staffid VARCHAR(10)
+AS
+    BEGIN
+        SELECT * FROM NHANVIEN WHERE MANHANVIEN = @staffid
+    END
+GO
+
+-- Thêm nhân viên
+CREATE PROC USP_InsertEmployee
+    @staffid VARCHAR(10),
+    @name NVARCHAR(100),
+    @sex NVARCHAR(4),
+    @dateofbirth DATE,
+    @address NVARCHAR(255),
+    @phone VARCHAR(12),
+    @dateofwork DATE,
+    @basicsalary DECIMAL(12, 2)
+AS
+    BEGIN
+        INSERT INTO NHANVIEN(MANHANVIEN, HOTEN, PHAI, NGAYSINH, DIACHI, SDT, NGAYVAOLAM, LUONGCOBAN) VALUES
+        (@staffid, @name, @sex, @dateofbirth, @address, @phone, @dateofwork, @basicsalary)
+    END
+GO
+

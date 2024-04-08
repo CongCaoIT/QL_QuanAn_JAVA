@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import java.util.Date;
 
 /**
  *
@@ -1940,9 +1941,11 @@ public class Home extends javax.swing.JFrame {
         cbSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
 
         dateNgaySinh.setDateFormatString("dd/MM/yyyy");
+        dateNgaySinh.setEnabled(false);
         dateNgaySinh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         dateNgayVaoLam.setDateFormatString("dd/MM/yyyy");
+        dateNgayVaoLam.setEnabled(false);
         dateNgayVaoLam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -2025,7 +2028,6 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(txbSDTNV)
                         .addGap(1, 1, 1))
                     .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel60, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dateNgayVaoLam, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2067,6 +2069,11 @@ public class Home extends javax.swing.JFrame {
         btnThemNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnThemNV.setForeground(new java.awt.Color(0, 0, 0));
         btnThemNV.setText("Thêm");
+        btnThemNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemNVActionPerformed(evt);
+            }
+        });
 
         btnXoaNV.setBackground(new java.awt.Color(255, 255, 204));
         btnXoaNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -2082,16 +2089,33 @@ public class Home extends javax.swing.JFrame {
         btnLoadNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLoadNV.setForeground(new java.awt.Color(0, 0, 0));
         btnLoadNV.setText("Tải lại");
+        btnLoadNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadNVActionPerformed(evt);
+            }
+        });
 
         btnHuyNV.setBackground(new java.awt.Color(255, 102, 102));
         btnHuyNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnHuyNV.setForeground(new java.awt.Color(0, 0, 0));
         btnHuyNV.setText("Hủy");
+        btnHuyNV.setEnabled(false);
+        btnHuyNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyNVActionPerformed(evt);
+            }
+        });
 
         btnLuuNV.setBackground(new java.awt.Color(204, 255, 255));
         btnLuuNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLuuNV.setForeground(new java.awt.Color(0, 0, 0));
         btnLuuNV.setText("Lưu");
+        btnLuuNV.setEnabled(false);
+        btnLuuNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuNVActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
         jPanel39.setLayout(jPanel39Layout);
@@ -4355,6 +4379,99 @@ public class Home extends javax.swing.JFrame {
             txbLCB.setText(String.valueOf(selectedLuong) + " VND");
         }
     }//GEN-LAST:event_tableDSNVMouseClicked
+
+    private void btnThemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNVActionPerformed
+        // TODO add your handling code here:
+        txbMaNV.setText("");
+        txbHoTenNV.setText("");
+        txbDiaChiNV.setText("");
+        txbSDTNV.setText("");
+        txbLCB.setText("");
+
+        txbMaNV.setEditable(true);
+        txbHoTenNV.setEditable(true);
+        txbDiaChiNV.setEditable(true);
+        txbSDTNV.setEditable(true);
+        txbLCB.setEditable(true);
+        cbSex.setEditable(true);
+        dateNgaySinh.setEnabled(true);
+        dateNgayVaoLam.setEnabled(true);
+
+        btnLoadNV.setEnabled(true);
+        btnLuuNV.setEnabled(true);
+        btnHuyNV.setEnabled(true);
+
+        btnThemNV.setEnabled(false);
+        btnXoaNV.setEnabled(false);
+        btnSuaNV.setEnabled(false);
+
+        flag = true;
+    }//GEN-LAST:event_btnThemNVActionPerformed
+
+    private void btnLoadNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadNVActionPerformed
+        // TODO add your handling code here:
+        loadNV();
+    }//GEN-LAST:event_btnLoadNVActionPerformed
+
+    private void btnLuuNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuNVActionPerformed
+        // TODO add your handling code here:
+        String str_manv = txbMaNV.getText().trim();
+        String str_hoten = txbHoTenNV.getText().trim();
+        String str_gioitinh = cbSex.getSelectedItem().toString();
+
+        // Định dạng của JDateChooser
+        Date date_ngaysinh = dateNgaySinh.getDate();
+
+        String str_diachi = txbDiaChiNV.getText().trim();
+        String str_sdt = txbSDTNV.getText().trim();
+
+        Date date_ngayvaolam = dateNgayVaoLam.getDate();
+
+        String str_lcb = txbLCB.getText().trim();
+
+        if (str_manv.equals("") || str_hoten.equals("") || str_gioitinh.equals("") || str_diachi.equals("") || str_sdt.equals("") || str_lcb.equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!");
+        } else {
+            if (str_sdt.length() < 10) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng!");
+            } else {
+                try {
+                    double lcb = Double.parseDouble(str_lcb);
+                    if (lcb <= 0) {
+                        JOptionPane.showMessageDialog(this, "Lương cơ bản phải lớn hơn 0!");
+                    } else {
+                        NhanVienDTO nv = NhanVienDAO.getInstance().GetEmployeeByStaffID(str_manv);
+                        if (nv != null && nv.getManhanvien().equals(str_manv)) {
+                            JOptionPane.showMessageDialog(this, "Mã nhân viên " + str_manv + " đã tồn tại trong danh sách tài khoản hoặc danh sách tài khoản đã xóa.\nVui lòng chọn mã nhân viên khác!!!.");
+                        } else {
+                            if (NhanVienDAO.getInstance().themNV(str_manv, str_hoten, str_gioitinh, date_ngaysinh, str_diachi, str_sdt, date_ngayvaolam, lcb)) {
+                                JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!!!");
+                                loadDSNV();
+                                loadNV();
+
+                                btnLoadNV.setEnabled(true);
+                                btnLuuNV.setEnabled(false);
+                                btnHuyNV.setEnabled(false);
+
+                                btnThemNV.setEnabled(true);
+                                btnXoaNV.setEnabled(true);
+                                btnSuaNV.setEnabled(true);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Thêm nhân viên thất bại!");
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Lương có bản phải có giá trị số!");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnLuuNVActionPerformed
+
+    private void btnHuyNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyNVActionPerformed
+        // TODO add your handling code here:
+        loadNV();
+    }//GEN-LAST:event_btnHuyNVActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Hàm Main">
@@ -4892,6 +5009,39 @@ public class Home extends javax.swing.JFrame {
         // Thêm renderer cho cột ngày sinh và lương cơ bản
         tableDSNV.getColumnModel().getColumn(3).setCellRenderer(new DateRenderer());
         tableDSNV.getColumnModel().getColumn(7).setCellRenderer(new CurrencyRenderer());
+    }
+
+    private void loadNV() {
+        txbMaNV.setText("");
+        txbHoTenNV.setText("");
+        txbDiaChiNV.setText("");
+        txbSDTNV.setText("");
+        txbLCB.setText("");
+
+        txbMaNV.setEditable(false);
+        txbHoTenNV.setEditable(false);
+        txbDiaChiNV.setEditable(false);
+        txbSDTNV.setEditable(false);
+        txbLCB.setEditable(false);
+        cbSex.setEditable(false);
+        dateNgaySinh.setEnabled(false);
+        dateNgayVaoLam.setEnabled(false);
+
+        btnLoadNV.setEnabled(true);
+        btnLuuNV.setEnabled(false);
+        btnHuyNV.setEnabled(false);
+
+        btnThemNV.setEnabled(true);
+        btnXoaNV.setEnabled(true);
+        btnSuaNV.setEnabled(true);
+
+        flag = false;
+
+        try {
+            loadDSNV();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     //</editor-fold>

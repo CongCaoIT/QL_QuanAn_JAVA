@@ -5,13 +5,14 @@
 package DAO;
 
 import DTO.NhanVienDTO;
-import DTO.TaiKhoanDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.sql.*;
 
 /**
  *
@@ -53,5 +54,32 @@ public class NhanVienDAO {
             }
         }
         return listNV;
+    }
+
+    public NhanVienDTO GetEmployeeByStaffID(String manv) {
+        String query = "EXEC USP_GetEmployeeByStaffID ?";
+        Object[] paramaters = {manv};
+
+        try {
+            ResultSet result = DataProvider.getInstance().executeQuery(query, paramaters);
+            if (result.next()) {
+                return new NhanVienDTO(result);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean themNV(String manv, String tennv, String gioitinh, Date ngaysinh, String diachi, String sdt, Date ngayvaolam, double luongcoban) {
+        String query = "EXEC USP_InsertEmployee ?, ?, ?, ?, ?, ?, ?, ?";
+        Object[] parameters = {manv, tennv, gioitinh, ngaysinh, diachi, sdt, ngayvaolam, luongcoban};
+        try {
+            int result = DataProvider.getInstance().executeNonQuery(query, parameters);
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
