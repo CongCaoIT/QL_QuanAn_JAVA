@@ -11,6 +11,8 @@ import DTO.TaiKhoanDTO;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import view.loginform.login;
 import java.sql.*;
 import java.text.DecimalFormat;
@@ -27,6 +29,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -1917,12 +1923,13 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(jPanel48Layout.createSequentialGroup()
                         .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txbTongLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txbTongLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel48Layout.createSequentialGroup()
                         .addComponent(jLabel62)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txbSoCa)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txbSoCa)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2079,11 +2086,21 @@ public class Home extends javax.swing.JFrame {
         btnXoaNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnXoaNV.setForeground(new java.awt.Color(0, 0, 0));
         btnXoaNV.setText("Xóa");
+        btnXoaNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaNVActionPerformed(evt);
+            }
+        });
 
         btnSuaNV.setBackground(new java.awt.Color(255, 204, 204));
         btnSuaNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSuaNV.setForeground(new java.awt.Color(0, 0, 0));
         btnSuaNV.setText("Sửa");
+        btnSuaNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaNVActionPerformed(evt);
+            }
+        });
 
         btnLoadNV.setBackground(new java.awt.Color(204, 204, 255));
         btnLoadNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -4171,13 +4188,6 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //<editor-fold defaultstate="collapsed" desc="Event Các Nút">
-    private void jLabelThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelThoatMouseClicked
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thoát chương trình không?", "Thông báo", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_jLabelThoatMouseClicked
-
     private void jToolBar5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToolBar5MouseClicked
         DoiMatKhau dmk = null;
         try {
@@ -4376,7 +4386,10 @@ public class Home extends javax.swing.JFrame {
             dateNgayVaoLam.setDate((Date) selectedNgayvaolam);
 
             Object selectedLuong = tableDSNV.getValueAt(selectedRow, 7);
-            txbLCB.setText(String.valueOf(selectedLuong) + " VND");
+            txbLCB.setText(String.valueOf(selectedLuong));
+            
+            txbSoCa.setText("30 ca");
+            txbTongLuong.setText(String.valueOf(((double)selectedLuong * 30)) + " VND");
         }
     }//GEN-LAST:event_tableDSNVMouseClicked
 
@@ -4440,26 +4453,51 @@ public class Home extends javax.swing.JFrame {
                     if (lcb <= 0) {
                         JOptionPane.showMessageDialog(this, "Lương cơ bản phải lớn hơn 0!");
                     } else {
-                        NhanVienDTO nv = NhanVienDAO.getInstance().GetEmployeeByStaffID(str_manv);
-                        if (nv != null && nv.getManhanvien().equals(str_manv)) {
-                            JOptionPane.showMessageDialog(this, "Mã nhân viên " + str_manv + " đã tồn tại trong danh sách tài khoản hoặc danh sách tài khoản đã xóa.\nVui lòng chọn mã nhân viên khác!!!.");
-                        } else {
-                            if (NhanVienDAO.getInstance().themNV(str_manv, str_hoten, str_gioitinh, date_ngaysinh, str_diachi, str_sdt, date_ngayvaolam, lcb)) {
-                                JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!!!");
-                                loadDSNV();
-                                loadNV();
-
-                                btnLoadNV.setEnabled(true);
-                                btnLuuNV.setEnabled(false);
-                                btnHuyNV.setEnabled(false);
-
-                                btnThemNV.setEnabled(true);
-                                btnXoaNV.setEnabled(true);
-                                btnSuaNV.setEnabled(true);
+                        if (flag == true) {
+                            NhanVienDTO nv = NhanVienDAO.getInstance().GetEmployeeByStaffID(str_manv);
+                            if (nv != null && nv.getManhanvien().equals(str_manv)) {
+                                JOptionPane.showMessageDialog(this, "Mã nhân viên " + str_manv + " đã tồn tại trong danh sách tài khoản hoặc danh sách tài khoản đã xóa.\nVui lòng chọn mã nhân viên khác!!!.");
                             } else {
-                                JOptionPane.showMessageDialog(this, "Thêm nhân viên thất bại!");
+                                if (NhanVienDAO.getInstance().themNV(str_manv, str_hoten, str_gioitinh, date_ngaysinh, str_diachi, str_sdt, date_ngayvaolam, lcb)) {
+                                    JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!!!");
+                                    loadDSNV();
+                                    loadNV();
+
+                                    btnLoadNV.setEnabled(true);
+                                    btnLuuNV.setEnabled(false);
+                                    btnHuyNV.setEnabled(false);
+
+                                    btnThemNV.setEnabled(true);
+                                    btnXoaNV.setEnabled(true);
+                                    btnSuaNV.setEnabled(true);
+                                } else {
+                                    JOptionPane.showMessageDialog(this, "Thêm nhân viên thất bại!");
+                                }
+                            }
+                        } else {
+                            if (flag == false) {
+                                try {
+                                    if (NhanVienDAO.getInstance().suaNV(str_manv, str_hoten, str_gioitinh, date_ngaysinh, str_diachi, str_sdt, date_ngayvaolam, lcb)) {
+                                        JOptionPane.showMessageDialog(this, "Sửa thông tin nhân viên thành công!");
+                                        loadDSNV();
+                                        loadNV();
+
+                                        btnLoadNV.setEnabled(true);
+                                        btnLuuNV.setEnabled(false);
+                                        btnHuyNV.setEnabled(false);
+
+                                        btnThemNV.setEnabled(true);
+                                        btnXoaNV.setEnabled(true);
+                                        btnSuaNV.setEnabled(true);
+                                    } else {
+                                        JOptionPane.showMessageDialog(this, "Sửa thông tin nhân viên thất bại!");
+                                    }
+                                } catch (Exception e) {
+                                    JOptionPane.showMessageDialog(this, "Ngày vào làm phải lớn hơn ngày sinh.\nVui lòng điền lại thông tin!");
+                                }
                             }
                         }
+
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Lương có bản phải có giá trị số!");
@@ -4472,6 +4510,63 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         loadNV();
     }//GEN-LAST:event_btnHuyNVActionPerformed
+
+    private void btnXoaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNVActionPerformed
+        // TODO add your handling code here:
+        String str_manv = txbMaNV.getText().trim();
+        if (str_manv.equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần xóa!");
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn xóa nhân viên này không?", "Thông báo", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+                if (NhanVienDAO.getInstance().xoaNV(str_manv)) {
+                    JOptionPane.showMessageDialog(this, "Xóa nhân viên thành công!");
+                    try {
+                        loadDSNV();
+                        loadNV();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa nhân viên thất bại");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnXoaNVActionPerformed
+
+    private void btnSuaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNVActionPerformed
+        // TODO add your handling code here:
+        if (txbMaNV.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần sửa thông tin!");
+        } else {
+            // TODO add your handling code here:
+
+            txbMaNV.setEditable(true);
+            txbHoTenNV.setEditable(true);
+            txbDiaChiNV.setEditable(true);
+            txbSDTNV.setEditable(true);
+            txbLCB.setEditable(true);
+            cbSex.setEditable(true);
+            dateNgaySinh.setEnabled(true);
+            dateNgayVaoLam.setEnabled(true);
+
+            btnLoadNV.setEnabled(true);
+            btnLuuNV.setEnabled(true);
+            btnHuyNV.setEnabled(true);
+
+            btnThemNV.setEnabled(false);
+            btnXoaNV.setEnabled(false);
+            btnSuaNV.setEnabled(false);
+
+            flag = false;
+        }
+    }//GEN-LAST:event_btnSuaNVActionPerformed
+
+    //<editor-fold defaultstate="collapsed" desc="Event Các Nút">
+    private void jLabelThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelThoatMouseClicked
+        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thoát chương trình không?", "Thông báo", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jLabelThoatMouseClicked
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Hàm Main">
@@ -4867,9 +4962,14 @@ public class Home extends javax.swing.JFrame {
         loadMaNhanVientoComboBox();
         loadTenNhanVientoComboBox();
         loadTrangThaitoComboBox();
+        loadLuongNVtoComboBox();
 
         loadDSNV();
         loadFontTable(tableDSNV);
+
+        txbSearchNV.getDocument().addDocumentListener(documentListener);
+        cbLuongSearch.addActionListener(luongSearchListener);
+        cbSexSearch.addActionListener(gioitinhSearchListener);
     }
 
     //Load giao diện JTalbe
@@ -4968,6 +5068,27 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
+    public void loadLuongNVtoComboBox() throws SQLException {
+        // Lấy danh sách lương nhân viên từ cơ sở dữ liệu
+        List<NhanVienDTO> listNhanVien = NhanVienDAO.getInstance().layDSNV();
+
+        // Sử dụng Set để lưu trữ các giá trị lương duy nhất
+        Set<Double> uniqueLuong = new HashSet<>();
+
+        // Xóa toàn bộ items hiện có trong JComboBox (nếu có)
+        cbLuongSearch.removeAllItems();
+
+        // Thêm lương nhân viên vào Set để loại bỏ các giá trị trùng lặp
+        for (NhanVienDTO nhanVien : listNhanVien) {
+            uniqueLuong.add(nhanVien.getLuongcoban());
+        }
+
+        // Thêm các giá trị lương duy nhất vào JComboBox
+        for (Double luong : uniqueLuong) {
+            cbLuongSearch.addItem(String.valueOf(luong));
+        }
+    }
+
     public void loadTrangThaitoComboBox() throws SQLException {
         // Lấy danh sách mã nhân viên từ cơ sở dữ liệu
         List<String> listTenNhanVien = TaiKhoanDAO.getInstance().layDSTrangThai();
@@ -4997,6 +5118,31 @@ public class Home extends javax.swing.JFrame {
         for (NhanVienDTO nv : listNV) {
             Object[] row = {nv.getManhanvien(), nv.getHoten(), nv.getPhai(), nv.getNgaysinh(), nv.getDiachi(), nv.getSdt(), nv.getNgayvaolam(), nv.getLuongcoban()};
             model.addRow(row);
+        }
+
+        // Thiết lập chiều rộng của từng cột
+        int[] columnWidths = {80, 200, 80, 150, 300, 150, 150, 200}; // Chiều rộng mong muốn cho từng cột
+        for (int i = 0; i < columnWidths.length; i++) {
+            TableColumn column = tableDSNV.getColumnModel().getColumn(i);
+            column.setPreferredWidth(columnWidths[i]);
+        }
+
+        // Thêm renderer cho cột ngày sinh và lương cơ bản
+        tableDSNV.getColumnModel().getColumn(3).setCellRenderer(new DateRenderer());
+        tableDSNV.getColumnModel().getColumn(7).setCellRenderer(new CurrencyRenderer());
+    }
+
+    // Định nghĩa hàm refreshTable để cập nhật bảng với danh sách nhân viên
+    private void refreshTable(List<NhanVienDTO> list) {
+        // Lấy mô hình của bảng
+        DefaultTableModel model = (DefaultTableModel) tableDSNV.getModel();
+
+        // Xóa tất cả các hàng hiện có trong bảng
+        model.setRowCount(0);
+
+        // Duyệt qua danh sách nhân viên và thêm từng nhân viên vào bảng
+        for (NhanVienDTO nv : list) {
+            model.addRow(new Object[]{nv.getManhanvien(), nv.getHoten(), nv.getPhai(), nv.getNgaysinh(), nv.getDiachi(), nv.getSdt(), nv.getNgayvaolam(), nv.getLuongcoban()});
         }
 
         // Thiết lập chiều rộng của từng cột
@@ -5044,5 +5190,74 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
+    // Định nghĩa DocumentListener và phương thức searchEmployee trong một
+    DocumentListener documentListener = new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            searchEmployee();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            searchEmployee();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            searchEmployee();
+        }
+
+        private void searchEmployee() {
+            String str_tennv = txbSearchNV.getText().trim();
+
+            try {
+                // Tìm kiếm nhân viên theo tên
+                List<NhanVienDTO> listEmployee = NhanVienDAO.getInstance().timNVTheoTen(str_tennv);
+
+                // Cập nhật bảng với kết quả tìm kiếm
+                refreshTable(listEmployee);
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    };
+
+    // Khai báo một ActionListener cho JComboBox
+    ActionListener luongSearchListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Lấy giá trị lương được chọn từ JComboBox
+            double selectedLuong = Double.parseDouble(cbLuongSearch.getSelectedItem().toString());
+
+            try {
+                // Thực hiện tìm kiếm nhân viên theo lương
+                List<NhanVienDTO> listNhanVien = NhanVienDAO.getInstance().timNVTheoLuong(selectedLuong);
+
+                // Cập nhật bảng với danh sách nhân viên được tìm thấy
+                refreshTable(listNhanVien);
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    };
+
+    // Khai báo một ActionListener cho JComboBox
+    ActionListener gioitinhSearchListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Lấy giá trị lương được chọn từ JComboBox
+            String gioitinh = cbSexSearch.getSelectedItem().toString().trim();
+
+            try {
+                // Thực hiện tìm kiếm nhân viên theo lương
+                List<NhanVienDTO> listNhanVien = NhanVienDAO.getInstance().timNVTheoGioiTinh(gioitinh);
+
+                // Cập nhật bảng với danh sách nhân viên được tìm thấy
+                refreshTable(listNhanVien);
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    };
     //</editor-fold>
 }

@@ -416,3 +416,111 @@ AS
     END
 GO
 
+--Xóa nhân viên
+CREATE PROC USP_DeleteEmployee
+    @staffid VARCHAR(10)
+AS
+    BEGIN
+        UPDATE NHANVIEN
+        SET DAXOA = 1
+        WHERE MANHANVIEN = @staffid
+    END
+GO
+
+--Sửa nhân viên
+CREATE PROC USP_UpdateEmployee
+    @staffid VARCHAR(10),
+    @name NVARCHAR(100),
+    @sex NVARCHAR(4),
+    @dateofbirth DATE,
+    @address NVARCHAR(255),
+    @phone VARCHAR(12),
+    @dateofwork DATE,
+    @basicsalary DECIMAL(12, 2)
+AS
+    BEGIN
+        UPDATE NHANVIEN
+        SET HOTEN = @name, PHAI = @sex, NGAYSINH = @dateofbirth, DIACHI = @address, SDT = @phone, NGAYVAOLAM = @dateofwork, LUONGCOBAN = @basicsalary
+        WHERE MANHANVIEN = @staffid
+    END
+GO
+
+-- Function Loại bỏ dấu tiếng Việt, giữ nguyên chữ in hoa và các ký tự đặc biệt
+CREATE FUNCTION [dbo].[fuConvertToUnsign1]
+(
+ @strInput NVARCHAR(4000)
+)
+RETURNS NVARCHAR(4000)
+AS
+BEGIN 
+ IF @strInput IS NULL RETURN @strInput
+ IF @strInput = '' RETURN @strInput
+ DECLARE @RT NVARCHAR(4000)
+ DECLARE @SIGN_CHARS NCHAR(136)
+ DECLARE @UNSIGN_CHARS NCHAR (136)
+ SET @SIGN_CHARS = N'ăâđêôơưàảãạáằẳẵặắầẩẫậấèẻẽẹéềểễệế
+ ìỉĩịíòỏõọóồổỗộốờởỡợớùủũụúừửữựứỳỷỹỵý
+ ĂÂĐÊÔƠƯÀẢÃẠÁẰẲẴẶẮẦẨẪẬẤÈẺẼẸÉỀỂỄỆẾÌỈĨỊÍ
+ ÒỎÕỌÓỒỔỖỘỐỜỞỠỢỚÙỦŨỤÚỪỬỮỰỨỲỶỸỴÝ'
+ +NCHAR(272)+ NCHAR(208)
+ SET @UNSIGN_CHARS = N'aadeoouaaaaaaaaaaaaaaaeeeeeeeeee
+ iiiiiooooooooooooooouuuuuuuuuuyyyyy
+ AADEOOUAAAAAAAAAAAAAAAEEEEEEEEEEIIIII
+ OOOOOOOOOOOOOOOUUUUUUUUUUYYYYYDD'
+ DECLARE @COUNTER int
+ DECLARE @COUNTER1 int
+ SET @COUNTER = 1
+ WHILE (@COUNTER <=LEN(@strInput))
+ BEGIN 
+ SET @COUNTER1 = 1
+ WHILE (@COUNTER1 <=LEN(@SIGN_CHARS)+1)
+ BEGIN
+ IF UNICODE(SUBSTRING(@SIGN_CHARS, @COUNTER1,1))
+ = UNICODE(SUBSTRING(@strInput,@COUNTER ,1) )
+ BEGIN 
+ IF @COUNTER=1
+ SET @strInput = SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1)
+ + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)-1) 
+ ELSE
+ SET @strInput = SUBSTRING(@strInput, 1, @COUNTER-1)
+ +SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1)
+ + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)- @COUNTER)
+ BREAK
+ END
+ SET @COUNTER1 = @COUNTER1 +1
+ END
+ SET @COUNTER = @COUNTER +1
+ END
+ SET @strInput = replace(@strInput,' ','-')
+ RETURN @strInput
+END
+GO
+
+--Tìm nhân viên theo tên
+CREATE PROC USP_SearchEmployeeByName
+    @name NVARCHAR(100)
+AS
+    BEGIN
+        SELECT *
+        FROM NHANVIEN
+        WHERE [dbo].[fuConvertToUnsign1](HOTEN) LIKE N'%' + [dbo].[fuConvertToUnsign1](@name) + N'%' AND DAXOA = 0;
+    END
+GO
+
+--Tìm nhân viên theo lương
+CREATE PROC USP_SearchEmployeeBySalary
+     @basicsalary DECIMAL(12, 2)
+AS
+    BEGIN
+        SELECT * FROM NHANVIEN WHERE LUONGCOBAN = @basicsalary AND DAXOA = 0
+    END
+GO
+
+--Tìm nhân viên theo giới tính
+CREATE PROC USP_SearchEmployeeBySex
+   @sex NVARCHAR(4)
+AS
+    BEGIN
+        SELECT * FROM NHANVIEN WHERE PHAI = @sex AND DAXOA = 0
+    END
+GO
