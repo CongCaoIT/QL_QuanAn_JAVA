@@ -590,3 +590,51 @@ CREATE PROCEDURE GetMonAnByLoaiMonAn
             WHERE MONAN.DAXOA = 0 AND LOAIMONAN.TENLOAIMONAN = @tenLoaiMonAn;
         END;
 GO
+-- Lấy tên loại của món thông qua mã món
+CREATE PROC USP_LayTenLoaiTheoMaMon
+    @maMon INT
+AS
+    BEGIN
+        SELECT TENLOAIMONAN
+		FROM LOAIMONAN, MONAN
+		WHERE LOAIMONAN.MALOAIMONAN = MONAN.MALOAIMONAN AND MAMONAN = @maMon
+    END
+GO
+--Xóa món ăn
+CREATE PROC USP_XoaMonAn
+    @maMon INT
+AS
+    BEGIN
+        UPDATE MONAN
+        SET DAXOA = 1
+        WHERE MAMONAN = @maMon
+    END
+GO
+--Thêm món ăn
+CREATE PROC USP_ThemMonAn
+	@maLoai INT,
+    @tenMon NVARCHAR(100), 
+    @unit NVARCHAR(20),
+    @gia DECIMAL(10, 2),
+    @images NVARCHAR(MAX)
+AS
+    BEGIN
+        INSERT INTO MONAN(MALOAIMONAN, TENMONAN, DVT, DONGIA, HINHANH) VALUES
+        (@maLoai, @tenMon, @unit, @gia, @images)
+    END
+GO
+--Sửa món ăn
+CREATE PROC USP_CapNhatMonAn
+    @maLoai INT,
+	@maMon INT,
+    @tenMon NVARCHAR(100), 
+    @unit NVARCHAR(20),
+    @gia DECIMAL(10, 2),
+    @images NVARCHAR(MAX)
+AS
+    BEGIN
+        UPDATE MONAN
+        SET MALOAIMONAN = @maLoai, TENMONAN = @tenMon, DVT = @unit, DONGIA = @gia, HINHANH = @images
+        WHERE MAMONAN = @maMon
+    END
+GO
