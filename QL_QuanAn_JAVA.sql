@@ -524,3 +524,69 @@ AS
         SELECT * FROM NHANVIEN WHERE PHAI = @sex AND DAXOA = 0
     END
 GO
+
+--Món ăn
+--Lấy mã theo tên loại món được chọn
+CREATE PROCEDURE USP_GetMaLoaiMonAnByTenLoai
+    @tenloai NVARCHAR(50)
+AS
+BEGIN
+    SELECT MALOAIMONAN 
+    FROM LOAIMONAN 
+    WHERE TENLOAIMONAN = @tenloai;
+END
+GO
+
+--Xóa loại món ăn
+CREATE PROC USP_XoaLoaiMonAn
+    @maLoai INT
+AS
+    BEGIN
+        UPDATE LOAIMONAN
+        SET DAXOA = 1
+        WHERE MALOAIMONAN = @maLoai
+    END
+GO
+
+--Thêm loại món ăn
+CREATE PROC USP_ThemLoaiMonAn
+    @tenLoai NVARCHAR(50)
+AS
+    BEGIN
+        INSERT INTO LOAIMONAN(TENLOAIMONAN) VALUES
+        (@tenLoai)
+    END
+GO
+
+--Sửa loại món ăn
+CREATE PROC USP_SuaLoaiMonAn
+    @maLoai INT,
+    @tenLoai NVARCHAR(50)
+AS
+    BEGIN
+        UPDATE LOAIMONAN 
+        SET TENLOAIMONAN = @tenLoai WHERE MALOAIMONAN = @maLoai
+    END
+GO
+
+--Tìm nhân viên theo tên
+CREATE PROC USP_SearchLMAByName
+    @name NVARCHAR(100)
+AS
+    BEGIN
+        SELECT *
+        FROM LOAIMONAN
+        WHERE [dbo].[fuConvertToUnsign1](TENLOAIMONAN) LIKE N'%' + [dbo].[fuConvertToUnsign1](@name) + N'%' AND DAXOA = 0;
+    END
+GO
+
+CREATE PROCEDURE GetMonAnByLoaiMonAn
+    @tenLoaiMonAn NVARCHAR(255)
+    AS
+        BEGIN
+            SELECT MONAN.*
+            FROM MONAN
+            INNER JOIN LOAIMONAN ON MONAN.MALOAIMONAN = LOAIMONAN.MALOAIMONAN
+            WHERE MONAN.DAXOA = 0 AND LOAIMONAN.TENLOAIMONAN = @tenLoaiMonAn;
+        END;
+GO

@@ -4,6 +4,12 @@
  */
 package DAO;
 
+import DTO.MonAnDTO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 /**
  *
  * @author TAOPRO
@@ -18,6 +24,37 @@ public class MonAnDAO {
         return instance;
     }
 
-    private MonAnDAO() {
+    public MonAnDAO() {
+    }
+    
+    public ArrayList<MonAnDTO> layDSMonDcTK(String tenMon) {
+        ArrayList<MonAnDTO> list = new ArrayList<>();
+        String query = "EXEC GetMonAnByLoaiMonAn ?";
+        try {
+            Connection con = DataProvider.getInstance().getConnection();
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, tenMon); // Gán giá trị cho tham số tenMon
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                MonAnDTO k = new MonAnDTO(rs);
+                k.setMamonan(rs.getInt("MAMONAN"));
+                k.setMaloaimonan(rs.getInt("MALOAIMONAN"));
+                k.setTenmonan(rs.getString("TENMONAN"));
+                k.setDvt(rs.getString("DVT"));
+                k.setDongia(rs.getDouble("DONGIA"));
+                k.setHinhanh(rs.getString("HINHANH"));
+                k.setDaxoa(rs.getBoolean("DAXOA"));
+                list.add(k);
+            }
+
+            rs.close();
+            pstmt.close();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

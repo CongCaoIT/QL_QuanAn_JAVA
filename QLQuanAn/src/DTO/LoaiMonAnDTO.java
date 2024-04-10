@@ -13,6 +13,8 @@ public class LoaiMonAnDTO {
     private int maloaimonan;
     private String tenloaimonan;
     private boolean daxoa;
+    
+    public LoaiMonAnDTO(){}
 
     public LoaiMonAnDTO(int maloaimonan, String tenloaimonan, boolean daxoa) {
         this.maloaimonan = maloaimonan;
