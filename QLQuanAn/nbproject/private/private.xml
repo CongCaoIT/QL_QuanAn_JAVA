@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/HK%20VI%20(2024%20-%202025)/Cong_Nghe_Java/Du%20An/QLQuanAn/src/DAO/MonAnDAO.java</file>
+            <file>file:/E:/HK%20VI%20(2024%20-%202025)/Cong_Nghe_Java/Du%20An/QLQuanAn/src/DTO/CongThucDTO.java</file>
+            <file>file:/E:/HK%20VI%20(2024%20-%202025)/Cong_Nghe_Java/Du%20An/QLQuanAn/src/view/manageform/DoiMatKhau.java</file>
+            <file>file:/E:/HK%20VI%20(2024%20-%202025)/Cong_Nghe_Java/Du%20An/QLQuanAn/src/DAO/CongThucDAO.java</file>
             <file>file:/E:/HK%20VI%20(2024%20-%202025)/Cong_Nghe_Java/Du%20An/QLQuanAn/src/view/manageform/Home.java</file>
+            <file>file:/E:/HK%20VI%20(2024%20-%202025)/Cong_Nghe_Java/Du%20An/QLQuanAn/src/DAO/NguyenLieuDAO.java</file>
         </group>
     </open-files>
 </project-private>

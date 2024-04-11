@@ -638,3 +638,94 @@ AS
         WHERE MAMONAN = @maMon
     END
 GO
+-- Lấy ra mã món từ tên món được chọn
+CREATE PROC USP_LayMaMon
+	@tenMon NVARCHAR(100)
+AS
+	BEGIN
+		SELECT CONGTHUC.MAMONAN
+		FROM CONGTHUC, MONAN
+		WHERE CONGTHUC.MAMONAN = MONAN.MAMONAN AND MONAN.TENMONAN = @tenMon
+	END
+GO
+
+-- Lấy ra mã nguyên liệu từ tên nguyên được chọn
+CREATE PROC USP_LayMaNguyenLieu
+	@tenNguyenLieu NVARCHAR(100)
+AS
+	BEGIN
+		SELECT NGUYENLIEU.MANGUYENLIEU
+		FROM CONGTHUC, NGUYENLIEU
+		WHERE CONGTHUC.MANGUYENLIEU = NGUYENLIEU.MANGUYENLIEU AND NGUYENLIEU.TENNGUYENLIEU = @tenNguyenLieu
+	END
+GO
+
+--Thêm công thức
+CREATE PROC USP_ThemCongThuc
+	@maMon INT,
+	@maNgLieu INT,
+	@sL INT,
+	@donvi NVARCHAR(100)
+AS
+    BEGIN
+        INSERT INTO CONGTHUC (MAMONAN, MANGUYENLIEU, SOLUONG, DONVI) VALUES
+        (@maMon, @maNgLieu, @sL, @donvi)
+    END
+GO
+
+--Sửa công thức
+CREATE PROC USP_SuaCongThuc
+	@maMon INT,
+	@maNgLieu INT,
+	@sL INT,
+	@donvi NVARCHAR(100)
+AS
+    BEGIN
+        UPDATE CONGTHUC
+		SET SOLUONG =@sL, DONVI = @donvi
+		WHERE MAMONAN = @maMon AND MANGUYENLIEU = @maNgLieu
+    END
+GO
+
+--Xóa công thức
+CREATE PROC USP_XoaCongThuc
+    @maMon INT
+AS
+	BEGIN
+		DELETE FROM CONGTHUC 
+		WHERE MAMONAN = @maMon
+	END
+GO
+
+--Xóa nguyên liệu
+CREATE PROC USP_XoaNgLieu
+    @maNL INT
+AS
+    BEGIN
+        UPDATE NGUYENLIEU
+        SET DAXOA = 1
+        WHERE MANGUYENLIEU = @maNL
+    END
+GO
+
+--Thêm nguyên liệu
+CREATE PROC USP_ThemNgLieu
+    @tenNL NVARCHAR(100)
+AS
+    BEGIN
+        INSERT INTO NGUYENLIEU(TENNGUYENLIEU) VALUES
+        (@tenNL)
+    END
+GO
+
+--Sửa nguyên liệu
+CREATE PROC USP_CapNhatNgLieu
+    @maNL INT,
+    @tenNL NVARCHAR(100)
+AS
+    BEGIN
+        UPDATE NGUYENLIEU 
+        SET TENNGUYENLIEU = @tenNL
+        WHERE MANGUYENLIEU = @maNL
+    END
+GO

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author thanhthao
  */
 public class DoiMatKhau extends javax.swing.JFrame {
-
+    Home home;
     private TaiKhoanDTO login;
 
     public TaiKhoanDTO getLogin() {
@@ -30,9 +30,9 @@ public class DoiMatKhau extends javax.swing.JFrame {
     /**
      * Creates new form DoiMatKhau
      */
-    public DoiMatKhau(TaiKhoanDTO acc) throws SQLException {
+    public DoiMatKhau(TaiKhoanDTO acc, Home home) throws SQLException {
         initComponents();
-
+        this.home = home;
         this.login = acc;
     }
 
@@ -248,14 +248,8 @@ public class DoiMatKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
-        Home home = null;
-        try {
-            home = new Home(login);
-        } catch (SQLException ex) {
-            Logger.getLogger(DoiMatKhau.class.getName()).log(Level.SEVERE, null, ex);
-        }
         home.setVisible(true);
-        this.dispose();
+       dispose();
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
@@ -282,45 +276,6 @@ public class DoiMatKhau extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoiMatKhau.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new DoiMatKhau(null).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(DoiMatKhau.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnDoiMatKhau;

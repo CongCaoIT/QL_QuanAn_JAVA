@@ -14,6 +14,24 @@ public class CongThucDTO {
     private int manguyenlieu;
     private int soluong;
     private String donvi;
+    private String tenmonan;
+    private String tennguyenlieu;
+
+    public String getTenmonan() {
+        return tenmonan;
+    }
+
+    public void setTenmonan(String tenmonan) {
+        this.tenmonan = tenmonan;
+    }
+
+    public String getTennguyenlieu() {
+        return tennguyenlieu;
+    }
+
+    public void setTennguyenlieu(String tennguyenlieu) {
+        this.tennguyenlieu = tennguyenlieu;
+    }
 
     public CongThucDTO(int macongthuc, int mamonan, int manguyenlieu, int soluong, String donvi) {
         this.macongthuc = macongthuc;
