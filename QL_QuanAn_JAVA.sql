@@ -64,7 +64,7 @@ CREATE TABLE NGUYENLIEU
 (
     MANGUYENLIEU INT IDENTITY NOT NULL,
     TENNGUYENLIEU NVARCHAR(100) NULL UNIQUE,
-    SOLUONG INT NOT NULL,
+    SOLUONG INT NULL,
     DAXOA BIT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_NGUYENLIEU PRIMARY KEY(MANGUYENLIEU)
@@ -165,10 +165,12 @@ INSERT INTO NHANVIEN(MANHANVIEN, HOTEN, PHAI, NGAYSINH, DIACHI, SDT, NGAYVAOLAM,
 ('NV001', N'Cao Tấn Công', N'Nam', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 300000),
 ('NV002', N'Thanh Thảo', N'Nữ', '2003-10-26', N'17B Tân Trụ, TP. HCM', '0362111265', '2023-10-01', 100000)
 GO
+
 INSERT INTO TAIKHOAN(TENDANGNHAP, MANHANVIEN, TENHIENTHI, MATKHAU, TRANGTHAI) VALUES
 ('admin', 'NV001', N'ADMIN', '1',  N'Admin'),
 ('TaoPro', 'NV002', N'Công Cao', '1',  N'Nhân viên')
 GO
+
 INSERT INTO LOAIMONAN(TENLOAIMONAN) VALUES
 (N'Hấp'),
 (N'Xào'),
@@ -183,6 +185,7 @@ INSERT INTO LOAIMONAN(TENLOAIMONAN) VALUES
 (N'Đồ uống cồn'),
 (N'Đồ uống không cồn')
 GO
+
 INSERT INTO MONAN(MALOAIMONAN, TENMONAN, DVT, DONGIA, HINHANH) VALUES
 (1, N'Gà hấp sả', N'Con', 150000, null),
 (1, N'Cá thu hấp', N'Con', 100000, null), 
@@ -242,6 +245,7 @@ INSERT INTO MONAN(MALOAIMONAN, TENMONAN, DVT, DONGIA, HINHANH) VALUES
 (12, N'Pepsi Lon', N'Lon', 25000, null),
 (12, N'CocaCola Lon', N'Lon', 25000, null)
 GO
+
 INSERT INTO NGUYENLIEU(TENNGUYENLIEU, SOLUONG, DAXOA) VALUES
 (N'Gà', 1, 0),
 (N'Vịt',1,0),
@@ -262,6 +266,24 @@ INSERT INTO NGUYENLIEU(TENNGUYENLIEU, SOLUONG, DAXOA) VALUES
 (N'Tiêu', 1, 0),
 (N'Nước mắm', 1, 0),
 (N'Giấm', 1, 0)
+GO
+
+INSERT INTO BAN (SOLUONGNGUOI, TRANGTHAI, DAXOA) VALUES 
+(5, N'Trống', 0),
+(5, N'Trống', 0),
+(4, N'Trống', 0),
+(4, N'Trống', 0),
+(6, N'Trống', 0),
+(6, N'Trống', 0),
+(6, N'Trống', 0),
+(6, N'Trống', 0),
+(1, N'Trống', 0),
+(1, N'Trống', 0),
+(2, N'Có người', 0),
+(3, N'Có người', 0),
+(4, N'Có người', 0),
+(2, N'Có người', 0),
+(3, N'Có người', 0);
 GO
 
 --Xử lý--
@@ -727,5 +749,50 @@ AS
         UPDATE NGUYENLIEU 
         SET TENNGUYENLIEU = @tenNL
         WHERE MANGUYENLIEU = @maNL
+    END
+GO
+
+-- Lấy thông tin bàn thông qua mã bàn
+CREATE PROC USP_layTTTheoMaBan
+    @maBan INT
+AS
+    BEGIN
+        SELECT MABAN, SOLUONGNGUOI, TRANGTHAI
+		FROM BAN WHERE DAXOA = 0 AND MABAN = @maBan
+    END
+GO
+
+--Thêm bàn ăn
+CREATE PROC USP_ThemBan
+    @soLuongNguoi INT,
+    @trangThai NVARCHAR(50)
+AS
+    BEGIN
+        INSERT INTO BAN(SOLUONGNGUOI, TRANGTHAI) VALUES
+        (@soLuongNguoi, @trangThai)
+    END
+GO
+
+--Sửa thông tin bàn ăn
+CREATE PROC USP_CapNhatBan
+    @maBan INT,
+    @soLuong INT,
+    @trangThai NVARCHAR(50)
+AS
+    BEGIN
+        UPDATE BAN 
+        SET SOLUONGNGUOI = @soLuong, TRANGTHAI = @trangThai
+        WHERE MABAN = @maBan
+    END
+GO
+
+--Xóa thông tin bàn
+CREATE PROC USP_XoaBan
+    @maBan INT
+AS
+    BEGIN
+        UPDATE BAN
+        SET DAXOA = 1
+        WHERE MABAN = @maBan 
     END
 GO

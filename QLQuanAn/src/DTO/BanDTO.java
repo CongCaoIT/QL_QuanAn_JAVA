@@ -22,10 +22,13 @@ public class BanDTO {
     }
     
     public BanDTO(ResultSet rs) throws SQLException{
-        this.maban = rs.getInt("MABAN");
-        this.soluongnguoi = rs.getInt("SOLUONGNGUOI");
-        this.trangthai = rs.getString("TRANGTHAI");
-        this.daxoa = rs.getBoolean("DAXOA");
+        try {
+            this.maban = rs.getInt("MABAN");
+            this.soluongnguoi = rs.getInt("SOLUONGNGUOI");
+            this.trangthai = rs.getString("TRANGTHAI");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public int getMaban() {
