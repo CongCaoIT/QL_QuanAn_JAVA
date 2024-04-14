@@ -796,3 +796,30 @@ AS
         WHERE MABAN = @maBan 
     END
 GO
+
+--Lấy danh sách hóa đơn theo ngày ra
+CREATE PROC USP_GetListBillByDateOut
+    @dateStart DATE, @dateEnd DATE
+AS
+    BEGIN
+        SELECT * FROM HOADON WHERE NGAYRA >= @dateStart AND NGAYRA <= @dateEnd 
+    END
+GO
+
+--Lấy danh sách hóa đơn theo ngày ra và nhân viên
+CREATE PROC USP_GetListBillByDateOutAndStaff
+    @dateStart DATE, @dateEnd DATE, @staffId VARCHAR(10)
+AS
+    BEGIN
+        SELECT * FROM HOADON WHERE NGAYRA >= @dateStart AND NGAYRA <= @dateEnd AND MANHANVIEN = @staffId
+    END
+GO
+
+--Lấy chi tiết hóa đơn theo hóa đơn
+CREATE PROC USP_GetBillInfoByBill
+    @billId INT
+AS
+    BEGIN
+        SELECT * FROM CHITIETHOADON WHERE MAHOADON = @billId
+    END
+GO

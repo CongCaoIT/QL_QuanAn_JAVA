@@ -36,6 +36,8 @@ public class HoaDonDTO {
         this.giamgia = rs.getInt("GIAMGIA");
         this.thanhtien = rs.getDouble("THANHTIEN");
     }
+    
+    public HoaDonDTO(){}
 
     public int getMahoadon() {
         return mahoadon;

@@ -29,7 +29,7 @@ public class NhanVienDAO {
         return instance;
     }
 
-    private NhanVienDAO() {
+    public NhanVienDAO() {
     }
 
     public List<NhanVienDTO> layDSNV() throws SQLException {

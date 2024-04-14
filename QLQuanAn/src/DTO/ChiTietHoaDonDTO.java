@@ -30,6 +30,7 @@ public class ChiTietHoaDonDTO {
         this.mahoadon = rs.getInt("MAHOADON");
         this.soluong = rs.getInt("SOLUONG");
     }
+    public ChiTietHoaDonDTO(){}
 
     public int getMacthd() {
         return macthd;
