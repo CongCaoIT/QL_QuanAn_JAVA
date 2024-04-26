@@ -51,4 +51,65 @@ public class ChiTietHoaDonDAO {
         }
         return listCTHD;
     }
+
+    public boolean insertBillDetails(int dishId, int billId, int count) {
+        String query = "{CALL USP_InsertBillDetails(?, ?, ?)}";
+        try {
+            int result = DataProvider.getInstance().executeUpdate(query, dishId, billId, count);
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ArrayList<ChiTietHoaDonDTO> getBillDetailsByBillId(int billId) {
+        ArrayList<ChiTietHoaDonDTO> chiTietHoaDonDTOs = new ArrayList<>();
+        String query = "SELECT * FROM CHITIETHOADON WHERE MAHOADON = ?";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query, new Object[]{billId});
+            while (resultSet.next()) {
+                chiTietHoaDonDTOs.add(new ChiTietHoaDonDTO(resultSet));
+            }
+            resultSet.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return chiTietHoaDonDTOs;
+    }
+
+    public boolean updateDishCountInBillDetail(int billId, int dishId, int count) {
+        String query = "{CALL USP_UpdateDishCountInBillDetail(?, ?, ?)}";
+        try {
+            int result = DataProvider.getInstance().executeUpdate(query, new Object[]{billId, dishId, count});
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean removeDishFromBillDetail(int billId, int dishId) {
+        String query = "{CALL USP_RemoveDishFromBillDetail(?, ?)}";
+        try {
+            int result = DataProvider.getInstance().executeUpdate(query, billId, dishId);
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

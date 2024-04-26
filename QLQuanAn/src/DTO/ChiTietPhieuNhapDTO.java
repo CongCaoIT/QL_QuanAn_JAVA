@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DTO;
+
 import java.sql.*;
+
 /**
  *
  * @author TAOPRO
  */
 public class ChiTietPhieuNhapDTO {
+
     private int mactpn;
     private int mapn;
     private int manguyenlieu;
@@ -22,13 +25,23 @@ public class ChiTietPhieuNhapDTO {
         this.dongianhap = dongianhap;
         this.soluongnhap = soluongnhap;
     }
-    
-    public ChiTietPhieuNhapDTO(ResultSet rs) throws SQLException{
+
+    public ChiTietPhieuNhapDTO(int manguyenlieu, double dongianhap, int soluongnhap) {
+        this.manguyenlieu = manguyenlieu;
+        this.dongianhap = dongianhap;
+        this.soluongnhap = soluongnhap;
+    }
+
+    public ChiTietPhieuNhapDTO(ResultSet rs) throws SQLException {
         this.mactpn = rs.getInt("MACTPN");
         this.mapn = rs.getInt("MAPN");
         this.manguyenlieu = rs.getInt("MANGUYENLIEU");
         this.dongianhap = rs.getDouble("DONGIANHAP");
         this.soluongnhap = rs.getInt("SOLUONGNHAP");
+    }
+    
+    public ChiTietPhieuNhapDTO(){
+        
     }
 
     public int getMactpn() {

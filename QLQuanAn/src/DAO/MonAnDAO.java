@@ -196,4 +196,75 @@ public class MonAnDAO {
             return false;
         }
     }
+    
+    public MonAnDTO getDishById(int id) {
+        MonAnDTO monAnDTO = null;
+        String query = "{CALL USP_GetDishById(?)}";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query, new Object[]{id});
+            while (resultSet.next()) {
+                monAnDTO = new MonAnDTO(resultSet);
+            }
+            resultSet.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return monAnDTO;
+    }
+    
+    public ArrayList<MonAnDTO> getDishs() {
+        ArrayList<MonAnDTO> monAnDTOs = new ArrayList<>();
+        String query = "SELECT * FROM MONAN";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query);
+            while (resultSet.next()) {
+                monAnDTOs.add(new MonAnDTO(resultSet));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return monAnDTOs;
+    }
+    
+    public ArrayList<MonAnDTO> searchDishByKeyWord(String keyWord) {
+        ArrayList<MonAnDTO> monAnDTOs = new ArrayList<>();
+        String query = "{CALL USP_SearchDishByKeyWord(?)}";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query, new Object[]{keyWord});
+            while (resultSet.next()) {
+                monAnDTOs.add(new MonAnDTO(resultSet));
+            }
+            resultSet.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return monAnDTOs;
+    }
+    
+    public ArrayList<MonAnDTO> searchDishByKeyWordAndCategory(String keyWord, String category) {
+        ArrayList<MonAnDTO> monAnDTOs = new ArrayList<>();
+        String query = "{CALL USP_SearchDishByKeyWordAndCategory(?, ?)}";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query, new Object[]{keyWord, category});
+            while (resultSet.next()) {
+                monAnDTOs.add(new MonAnDTO(resultSet));
+            }
+            resultSet.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return monAnDTOs;
+    }
 }

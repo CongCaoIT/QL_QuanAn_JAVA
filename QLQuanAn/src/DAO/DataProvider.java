@@ -35,6 +35,19 @@ public class DataProvider {
         return DriverManager.getConnection(conStr, userName, password);
     }
 
+    public int executeUpdate(String query, Object... parameters) {
+        int rowsAffected = 0;
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            setParameters(preparedStatement, parameters);
+            rowsAffected = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowsAffected;
+    }
+
     public ResultSet executeQuery(String query, Object[] parameters) throws SQLException {
         Connection con = DriverManager.getConnection(conStr, userName, password);
         PreparedStatement pstmt = con.prepareStatement(query);
@@ -45,6 +58,12 @@ public class DataProvider {
             }
         }
 
+        return pstmt.executeQuery();
+    }
+
+    public ResultSet executeQuery(String query) throws SQLException {
+        Connection con = DriverManager.getConnection(conStr, userName, password);
+        PreparedStatement pstmt = con.prepareStatement(query);
         return pstmt.executeQuery();
     }
 
@@ -79,13 +98,6 @@ public class DataProvider {
         }
 
         return result;
-    }
-
-    public void executeUpdate(String query, Object[] params) throws SQLException {
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
-            setParameters(statement, params);
-            statement.executeUpdate();
-        }
     }
 
     private void setParameters(PreparedStatement statement, Object[] params) throws SQLException {

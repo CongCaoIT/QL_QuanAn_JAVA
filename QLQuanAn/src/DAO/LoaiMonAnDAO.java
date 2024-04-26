@@ -155,4 +155,27 @@ public class LoaiMonAnDAO {
         }
         return listLMA;
     }
+    
+    public ArrayList<LoaiMonAnDTO> getDishCategory() {
+        ArrayList<LoaiMonAnDTO> loaiMonAnDTOs = new ArrayList<>();
+        String query = "SELECT * FROM LOAIMONAN";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query);
+            while (resultSet.next()) {
+                loaiMonAnDTOs.add(new LoaiMonAnDTO(resultSet));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return loaiMonAnDTOs;
+    }
 }

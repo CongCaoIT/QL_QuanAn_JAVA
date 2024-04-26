@@ -30,6 +30,8 @@ public class NhaCungCapDTO {
         this.email = rs.getString("EMAIL");
         this.sdt = rs.getString("SDT");
     }
+    
+    public NhaCungCapDTO(){}
 
     public int getMancc() {
         return mancc;

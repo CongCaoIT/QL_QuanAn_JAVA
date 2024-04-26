@@ -12,12 +12,13 @@ public class HoaDonDTO {
     private int mahoadon;
     private int maban;
     private String manhanvien;
-    private Date ngayvao;
-    private Date ngayra;
+    private Timestamp ngayvao;
+    private Timestamp ngayra;
     private int giamgia;
     private double thanhtien;
+    private boolean daxoa;
 
-    public HoaDonDTO(int mahoadon, int maban, String manhanvien, Date ngayvao, Date ngayra, int giamgia, double thanhtien) {
+    public HoaDonDTO(int mahoadon, int maban, String manhanvien, Timestamp ngayvao, Timestamp ngayra, int giamgia, double thanhtien, boolean daxoa) {
         this.mahoadon = mahoadon;
         this.maban = maban;
         this.manhanvien = manhanvien;
@@ -25,19 +26,8 @@ public class HoaDonDTO {
         this.ngayra = ngayra;
         this.giamgia = giamgia;
         this.thanhtien = thanhtien;
+        this.daxoa = daxoa;
     }
-    
-    public HoaDonDTO(ResultSet rs) throws SQLException{
-        this.mahoadon = rs.getInt("MAHOADON");
-        this.maban = rs.getInt("MABAN");
-        this.manhanvien = rs.getString("MANHANVIEN");
-        this.ngayvao = rs.getDate("NGAYVAO");
-        this.ngayra = rs.getDate("NGAYRA");
-        this.giamgia = rs.getInt("GIAMGIA");
-        this.thanhtien = rs.getDouble("THANHTIEN");
-    }
-    
-    public HoaDonDTO(){}
 
     public int getMahoadon() {
         return mahoadon;
@@ -63,19 +53,19 @@ public class HoaDonDTO {
         this.manhanvien = manhanvien;
     }
 
-    public Date getNgayvao() {
+    public Timestamp getNgayvao() {
         return ngayvao;
     }
 
-    public void setNgayvao(Date ngayvao) {
+    public void setNgayvao(Timestamp ngayvao) {
         this.ngayvao = ngayvao;
     }
 
-    public Date getNgayra() {
+    public Timestamp getNgayra() {
         return ngayra;
     }
 
-    public void setNgayra(Date ngayra) {
+    public void setNgayra(Timestamp ngayra) {
         this.ngayra = ngayra;
     }
 
@@ -94,5 +84,25 @@ public class HoaDonDTO {
     public void setThanhtien(double thanhtien) {
         this.thanhtien = thanhtien;
     }
+
+    public boolean isDaxoa() {
+        return daxoa;
+    }
+
+    public void setDaxoa(boolean daxoa) {
+        this.daxoa = daxoa;
+    }
     
+    public HoaDonDTO(ResultSet rs) throws SQLException{
+        this.mahoadon = rs.getInt("MAHOADON");
+        this.maban = rs.getInt("MABAN");
+        this.manhanvien = rs.getString("MANHANVIEN");
+        this.ngayvao = rs.getTimestamp("NGAYVAO");
+        this.ngayra = rs.getTimestamp("NGAYRA");
+        this.giamgia = rs.getInt("GIAMGIA");
+        this.thanhtien = rs.getDouble("THANHTIEN");
+        this.daxoa = rs.getBoolean("DAXOA");
+    }
+    
+    public HoaDonDTO(){}
 }

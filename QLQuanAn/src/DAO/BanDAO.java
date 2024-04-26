@@ -141,4 +141,58 @@ public class BanDAO {
             return false;
         }
     }
+    
+    public boolean updateTableStatus(int tableId, String status) {
+        String query = "{CALL USP_UpdateTableStatus(?, ?)}";
+        try {
+            int result = DataProvider.getInstance().executeUpdate(query, tableId, status);
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<BanDTO> getTables() {
+        ArrayList<BanDTO> banDTOs = new ArrayList<>();
+        String query = "SELECT * FROM Ban";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query);
+            while (resultSet.next()) {
+                banDTOs.add(new BanDTO(resultSet));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return banDTOs;
+    }
+    
+    public BanDTO getTableById(int id) {
+        BanDTO banDTO = null;
+        String query = "{CALL USP_GetTableById(?)}";
+        ResultSet resultSet = null;
+        try {
+            resultSet = DataProvider.getInstance().executeQuery(query, new Object[]{id});
+            while (resultSet.next()) {
+                banDTO = new BanDTO(resultSet);
+            }
+            resultSet.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return banDTO;
+    }
 }
