@@ -27,6 +27,10 @@ public class PhieuNhapDTO {
         this.ngaynhap = rs.getDate("NGAYNHAP");
         this.daxoa = rs.getBoolean("DAXOA");
     }
+    
+    public PhieuNhapDTO(){
+        
+    }
 
     public int getMapn() {
         return mapn;

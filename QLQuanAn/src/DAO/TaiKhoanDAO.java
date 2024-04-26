@@ -39,19 +39,26 @@ public class TaiKhoanDAO {
         return false;
     }
 
-    public TaiKhoanDTO layTKTheoTen(String tendangnhap) {
-        String query = "SELECT * FROM TAIKHOAN WHERE TENDANGNHAP = ?";
-        Object[] paramaters = {tendangnhap};
-
-        try {
-            ResultSet result = DataProvider.getInstance().executeQuery(query, paramaters);
-            if (result.next()) {
-                return new TaiKhoanDTO(result);
+    public TaiKhoanDTO layTKTheoTen(String tendangnhap) throws SQLException {
+        String query = "EXEC USP_layTKtheoTenDN ?";
+        DataProvider dataProvider = DataProvider.getInstance();
+        TaiKhoanDTO acc = null;
+        try (Connection con = dataProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(query);) {
+            pstmt.setString(1, tendangnhap);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    acc = new TaiKhoanDTO();
+                    acc.setTendangnhap(rs.getString("TENDANGNHAP"));
+                    acc.setManhanvien(rs.getString("MANHANVIEN"));
+                    acc.setTenhienthi(rs.getString("TENHIENTHI"));
+                    acc.setMatkhau(rs.getString("MATKHAU"));
+                    acc.setTrangthai(rs.getString("TRANGTHAI"));
+                    acc.setDaxoa(rs.getBoolean("DAXOA"));
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return null;
+        return acc;
     }
 
     public boolean ThayDoiMK(String tendangnhap, String matkhaucu, String matkhaumoi) {
@@ -160,7 +167,7 @@ public class TaiKhoanDAO {
         }
         return false;
     }
-    
+
     public TaiKhoanDTO layDSTKtheoMaNV(String manhanvien) {
         String query = "EXEC USP_GetAccountByStaffID ?";
         Object[] paramaters = {manhanvien};
@@ -175,7 +182,7 @@ public class TaiKhoanDAO {
         }
         return null;
     }
-    
+
     public boolean deleteTK(String tendangnhap) {
         String query = "EXEC USP_DeleteAccount ?";
         Object[] parameters = {tendangnhap};
@@ -187,7 +194,7 @@ public class TaiKhoanDAO {
         }
         return false;
     }
-    
+
     public boolean suaTK(String tendangnhap, String trangthai) {
         String query = "EXEC USP_UpdateAccount ?";
         Object[] parameters = {tendangnhap};

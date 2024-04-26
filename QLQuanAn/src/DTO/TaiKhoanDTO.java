@@ -18,15 +18,6 @@ public class TaiKhoanDTO {
 
     public TaiKhoanDTO(){}
     
-    public TaiKhoanDTO(String tendangnhap, String manhanvien, String tenhienthi, String matkhau, String trangthai, boolean daxoa) {
-        this.tendangnhap = tendangnhap;
-        this.manhanvien = manhanvien;
-        this.tenhienthi = tenhienthi;
-        this.matkhau = matkhau;
-        this.trangthai = trangthai;
-        this.daxoa = daxoa;
-    }
-    
     public TaiKhoanDTO(ResultSet rs) throws SQLException{
         this.tendangnhap = rs.getString("TENDANGNHAP");
         this.manhanvien = rs.getString("MANHANVIEN");
@@ -34,6 +25,15 @@ public class TaiKhoanDTO {
         this.matkhau = rs.getString("MATKHAU");
         this.trangthai = rs.getString("TRANGTHAI");
         this.daxoa = rs.getBoolean("DAXOA");       
+    }
+
+    public TaiKhoanDTO(String tendangnhap, String manhanvien, String tenhienthi, String matkhau, String trangthai, boolean daxoa) {
+        this.tendangnhap = tendangnhap;
+        this.manhanvien = manhanvien;
+        this.tenhienthi = tenhienthi;
+        this.matkhau = matkhau;
+        this.trangthai = trangthai;
+        this.daxoa = daxoa;
     }
 
     public String getTendangnhap() {
@@ -82,5 +82,6 @@ public class TaiKhoanDTO {
 
     public void setDaxoa(boolean daxoa) {
         this.daxoa = daxoa;
-    }   
+    }
+    
 }

@@ -71,4 +71,22 @@ public class NhaCungCapDAO {
         return maNCC;
     }
 
+    public String layTenNCCTheoMa(int maNCC) {
+        String ten = null;
+        try {
+            String query = "SELECT TENNC FROM NHACUNGCAP WHERE MANCC = ?";
+            DataProvider dataProvider = DataProvider.getInstance();
+            try (Connection con = dataProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(query)) {
+                pstmt.setInt(1, maNCC);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        ten = rs.getString("TENNC");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ten;
+    }
 }

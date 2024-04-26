@@ -4,12 +4,17 @@
  */
 package DAO;
 
+import DTO.NhanVienDTO;
+import DTO.PhieuNhapDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.crypto.interfaces.PBEKey;
 
 /**
  *
@@ -49,5 +54,67 @@ public class PhieuNhapDAO {
             ex.printStackTrace();
         }
         return maPhieuNhap;
+    }
+
+    public List<PhieuNhapDTO> layDSPN() throws SQLException {
+        List<PhieuNhapDTO> list = new ArrayList<>();
+
+        String query = "EXEC USP_layDSPN";
+        DataProvider dataProvider = DataProvider.getInstance();
+        try (Connection con = dataProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                PhieuNhapDTO pn = new PhieuNhapDTO();
+                pn.setMapn(rs.getInt("MAPN"));
+                pn.setMancc(rs.getInt("MANCC"));
+                pn.setNgaynhap(rs.getDate("NGAYNHAP"));
+                pn.setDaxoa(rs.getBoolean("DAXOA"));
+                list.add(pn);
+            }
+        }
+        return list;
+    }
+
+    public List<PhieuNhapDTO> timDSPNTheoNgay(Date ngay) throws SQLException {
+        List<PhieuNhapDTO> list = new ArrayList<>();
+
+        String query = "EXEC USP_layDSPNtheoNgayNhap ?";
+        DataProvider dataProvider = DataProvider.getInstance();
+        try (Connection con = dataProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(query);) {
+            java.sql.Date startDate = new java.sql.Date(ngay.getTime());
+            pstmt.setDate(1, startDate);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    PhieuNhapDTO pn = new PhieuNhapDTO();
+                    pn.setMapn(rs.getInt("MAPN"));
+                    pn.setMancc(rs.getInt("MANCC"));
+                    pn.setNgaynhap(rs.getDate("NGAYNHAP"));
+                    pn.setDaxoa(rs.getBoolean("DAXOA"));
+                    list.add(pn);
+                }
+            }
+        }
+        return list;
+    }
+    
+    public List<PhieuNhapDTO> timDSPNTheoMa(int mapn) throws SQLException {
+        List<PhieuNhapDTO> list = new ArrayList<>();
+
+        String query = "EXEC USP_layDSPNtheoMa ?";
+        DataProvider dataProvider = DataProvider.getInstance();
+        try (Connection con = dataProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(query);) {
+            pstmt.setInt(1, mapn);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    PhieuNhapDTO pn = new PhieuNhapDTO();
+                    pn.setMapn(rs.getInt("MAPN"));
+                    pn.setMancc(rs.getInt("MANCC"));
+                    pn.setNgaynhap(rs.getDate("NGAYNHAP"));
+                    pn.setDaxoa(rs.getBoolean("DAXOA"));
+                    list.add(pn);
+                }
+            }
+        }
+        return list;
     }
 }

@@ -415,6 +415,13 @@ AS
         SELECT TAIKHOAN.TENHIENTHI FROM TAIKHOAN
     END
 GO
+CREATE PROC USP_layTKtheoTenDN
+@tendangnhap NVARCHAR(50)
+AS
+    BEGIN
+        SELECT * FROM TAIKHOAN WHERE TENDANGNHAP = @tendangnhap
+    END
+GO
 
 --Lấy danh sách trạng thái tài khoản
 CREATE PROC USP_GetListStatus
@@ -1018,5 +1025,36 @@ CREATE PROC USP_layDSNguyenLieuTheoMaNCC
 AS
     BEGIN
         SELECT * FROM NGUYENLIEU WHERE MANCC = @mancc
+    END
+GO  
+
+CREATE PROC USP_layDSPN
+AS
+    BEGIN
+        SELECT * FROM PHIEUNHAP
+    END
+GO
+
+CREATE PROC USP_layDSCTPNtheoMa
+@mapn INT
+AS
+    BEGIN
+        SELECT * FROM CHITIETPHIEUNHAP WHERE MAPN = @mapn
+    END
+GO
+
+CREATE PROC USP_layDSPNtheoNgayNhap
+@ngaynhap DATE
+AS 
+    BEGIN
+        SELECT * FROM PHIEUNHAP WHERE NGAYNHAP = @ngaynhap      
+    END
+GO
+
+CREATE PROC USP_layDSPNtheoMa
+@mapn INT
+AS
+    BEGIN
+        SELECT * FROM PHIEUNHAP WHERE MAPN = @mapn
     END
 GO

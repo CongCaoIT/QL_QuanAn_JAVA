@@ -5,10 +5,13 @@
 package DAO;
 
 import DTO.ChiTietPhieuNhapDTO;
+import DTO.PhieuNhapDTO;
 import com.sun.jdi.connect.spi.Connection;
 import java.util.List;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -43,5 +46,27 @@ public class ChiTietPhieuNhapDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public List<ChiTietPhieuNhapDTO> layDSPNtheoMaPN(int mapn) throws SQLException {
+        List<ChiTietPhieuNhapDTO> list = new ArrayList<>();
+
+        String query = "EXEC USP_layDSCTPNtheoMa ?";
+        DataProvider dataProvider = DataProvider.getInstance();
+        try (java.sql.Connection con = dataProvider.getConnection(); PreparedStatement pstmt = con.prepareStatement(query);) {
+            pstmt.setInt(1, mapn);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    ChiTietPhieuNhapDTO ctpn = new ChiTietPhieuNhapDTO();
+                    ctpn.setMactpn(rs.getInt("MACTPN"));
+                    ctpn.setMapn(rs.getInt("MAPN"));
+                    ctpn.setManguyenlieu(rs.getInt("MANGUYENLIEU"));
+                    ctpn.setDongianhap(rs.getDouble("DONGIANHAP"));
+                    ctpn.setSoluongnhap(rs.getInt("SOLUONGNHAP"));
+                    list.add(ctpn);
+                }
+            }
+        }
+        return list;
     }
 }
