@@ -35,6 +35,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -80,6 +81,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -140,6 +142,10 @@ public class Home extends javax.swing.JFrame {
     public Home(TaiKhoanDTO acc) throws SQLException {
         initComponents();
         this.login = acc;
+        jLabelRoles.setText(login.getTendangnhap());
+        if (login.getTrangthai().equals("Nhân viên")) {
+            jTabbedPane1.setEnabled(false);
+        }
         load();
     }
 
@@ -148,10 +154,10 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupQuyen = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelRoles = new javax.swing.JLabel();
         jLabelThoat = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jToolBar1 = new javax.swing.JToolBar();
+        jToolBarHeThong = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jToolBar4 = new javax.swing.JToolBar();
@@ -228,7 +234,7 @@ public class Home extends javax.swing.JFrame {
         jLabel128 = new javax.swing.JLabel();
         jPanel102 = new javax.swing.JPanel();
         jLabel129 = new javax.swing.JLabel();
-        jToolBar2 = new javax.swing.JToolBar();
+        jToolBarQuanLy = new javax.swing.JToolBar();
         jPanel25 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jToolBar6 = new javax.swing.JToolBar();
@@ -525,7 +531,7 @@ public class Home extends javax.swing.JFrame {
         jdc_NgNhap_PN = new com.toedter.calendar.JDateChooser();
         jLabel158 = new javax.swing.JLabel();
         txbNhaCungCap = new javax.swing.JTextField();
-        jToolBar3 = new javax.swing.JToolBar();
+        jToolBarThongKe = new javax.swing.JToolBar();
         jPanel116 = new javax.swing.JPanel();
         toolbarchart = new javax.swing.JTabbedPane();
         jToolBar5 = new javax.swing.JToolBar();
@@ -569,10 +575,10 @@ public class Home extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icon/t1.png"))); // NOI18N
-        jLabel1.setText("admin");
+        jLabelRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelRoles.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icon/t1.png"))); // NOI18N
+        jLabelRoles.setText("admin");
 
         jLabelThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icon/exit.png"))); // NOI18N
         jLabelThoat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -584,7 +590,7 @@ public class Home extends javax.swing.JFrame {
         jTabbedPane1.setForeground(new java.awt.Color(51, 51, 51));
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jToolBar1.setRollover(true);
+        jToolBarHeThong.setRollover(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -1573,12 +1579,12 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jTabbedPane2)
         );
 
-        jToolBar1.add(jPanel1);
+        jToolBarHeThong.add(jPanel1);
 
-        jTabbedPane1.addTab("Hệ Thống", jToolBar1);
+        jTabbedPane1.addTab("Hệ Thống", jToolBarHeThong);
 
-        jToolBar2.setRollover(true);
-        jToolBar2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jToolBarQuanLy.setRollover(true);
+        jToolBarQuanLy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jPanel25.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -5065,11 +5071,11 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jTabbedPane3)
         );
 
-        jToolBar2.add(jPanel25);
+        jToolBarQuanLy.add(jPanel25);
 
-        jTabbedPane1.addTab("Quản Lý", jToolBar2);
+        jTabbedPane1.addTab("Quản Lý", jToolBarQuanLy);
 
-        jToolBar3.setRollover(true);
+        jToolBarThongKe.setRollover(true);
 
         toolbarchart.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -5377,16 +5383,15 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jLabel64, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel65, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel88Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(dateTKNKT, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel88Layout.createSequentialGroup()
-                        .addGroup(jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dateTKNBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cbTKTenNV, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                                .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnChartDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(dateTKNBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbTKTenNV, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                                    .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnChartDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(dateTKNKT, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 4, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel88Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel89, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -5431,7 +5436,7 @@ public class Home extends javax.swing.JFrame {
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1402, Short.MAX_VALUE)
+            .addGap(0, 1405, Short.MAX_VALUE)
         );
         panelChartLayout.setVerticalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5488,9 +5493,9 @@ public class Home extends javax.swing.JFrame {
             .addComponent(toolbarchart)
         );
 
-        jToolBar3.add(jPanel116);
+        jToolBarThongKe.add(jPanel116);
 
-        jTabbedPane1.addTab("Thống Kê", jToolBar3);
+        jTabbedPane1.addTab("Thống Kê", jToolBarThongKe);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -5503,7 +5508,7 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jTabbedPane1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabelRoles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelThoat)
                         .addGap(16, 16, 16))))
@@ -5514,7 +5519,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelThoat)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabelRoles))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1))
         );
@@ -7237,7 +7242,6 @@ public class Home extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dateTKNKT;
     private com.toedter.calendar.JDateChooser dateTKNKT_NV;
     private javax.swing.JLabel imgHinh;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -7357,6 +7361,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jLabelChooseDish;
     private javax.swing.JButton jLabelCombineTable;
     private javax.swing.JButton jLabelOrderTable;
+    private javax.swing.JLabel jLabelRoles;
     private javax.swing.JButton jLabelSwitchTable;
     private javax.swing.JLabel jLabelThoat;
     private javax.swing.JLabel jLabelTotal;
@@ -7501,7 +7506,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextFieldSelectedTable;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar10;
     private javax.swing.JToolBar jToolBar11;
     private javax.swing.JToolBar jToolBar12;
@@ -7509,14 +7513,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar14;
     private javax.swing.JToolBar jToolBar15;
     private javax.swing.JToolBar jToolBar16;
-    private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JToolBar jToolBar3;
     private javax.swing.JToolBar jToolBar4;
     private javax.swing.JToolBar jToolBar5;
     private javax.swing.JToolBar jToolBar6;
     private javax.swing.JToolBar jToolBar7;
     private javax.swing.JToolBar jToolBar8;
     private javax.swing.JToolBar jToolBar9;
+    private javax.swing.JToolBar jToolBarHeThong;
+    private javax.swing.JToolBar jToolBarQuanLy;
+    private javax.swing.JToolBar jToolBarThongKe;
     private com.toedter.calendar.JDateChooser jdc_NgNhap;
     private com.toedter.calendar.JDateChooser jdc_NgNhap_PN;
     private javax.swing.JPanel jpanelDSBan;
@@ -8366,7 +8371,9 @@ public class Home extends javax.swing.JFrame {
                 if (ngayTruoc != null) {
                     doanhThuTheoNgay.add(doanhThuNgayHienTai);
                     // Thêm dữ liệu vào dataset cho biểu đồ
-                    dataset.addValue(doanhThuNgayHienTai, "Doanh thu", ngayTruoc.toString());
+                    SimpleDateFormat dayMonthFormat = new SimpleDateFormat("dd/MM");
+                    String ngayThang = dayMonthFormat.format(ngayTruoc);
+                    dataset.addValue(doanhThuNgayHienTai, "Doanh thu", ngayThang);
                 }
                 // Đặt lại tổng doanh thu của ngày hiện tại và ngày trước đó
                 doanhThuNgayHienTai = 0;
@@ -8376,7 +8383,9 @@ public class Home extends javax.swing.JFrame {
         }
         doanhThuTheoNgay.add(doanhThuNgayHienTai);
         // Thêm dữ liệu cho ngày cuối cùng
-        dataset.addValue(doanhThuNgayHienTai, "Doanh thu", ngayTruoc.toString());
+        SimpleDateFormat dayMonthFormat = new SimpleDateFormat("dd/MM");
+        String ngayThang = dayMonthFormat.format(ngayTruoc);
+        dataset.addValue(doanhThuNgayHienTai, "Doanh thu", ngayThang);
         String titile = "Thống kê doanh thu";
         String row = "Từ ngày " + strNgayBatDau + " - " + strNgayKetThuc;
         String col = "Doanh thu (VND)";
@@ -8399,9 +8408,21 @@ public class Home extends javax.swing.JFrame {
         // Tạo panel để chứa biểu đồ
         ChartPanel chartPanel = new ChartPanel(chart);
 
+        // Đặt chiều rộng của mỗi cột (tính theo pixel)
+        double columnWidth = 30.0; // Chiều rộng cố định cho mỗi cột
+
+        // Tính toán chiều rộng của biểu đồ dựa trên số lượng cột và chiều rộng mỗi cột
+        double chartWidth = dataset.getColumnCount() * columnWidth;
+
+        // Đặt chiều rộng của biểu đồ
+        Dimension chartDimension = new Dimension((int) chartWidth, 600);
+        chartPanel.setPreferredSize(chartDimension);
+
+        // Đặt khoảng cách giữa các cột
+        plot.getDomainAxis().setCategoryMargin(0.1);
+
         // Xóa nội dung của panel hiện tại và thêm biểu đồ mới vào
         panelChart.removeAll();
-        panelChart.setPreferredSize(new Dimension(1386, 600));
         panelChart.setLayout(new BorderLayout());
         panelChart.add(chartPanel, BorderLayout.CENTER);
         panelChart.revalidate();

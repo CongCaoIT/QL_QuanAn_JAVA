@@ -40,7 +40,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelRoles" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabelThoat" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -55,7 +55,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelThoat" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelRoles" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTabbedPane1" max="32767" attributes="0"/>
@@ -64,7 +64,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jLabelRoles">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -100,7 +100,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JToolBar" name="jToolBar1">
+        <Container class="javax.swing.JToolBar" name="jToolBarHeThong">
           <Properties>
             <Property name="rollover" type="boolean" value="true"/>
           </Properties>
@@ -1929,7 +1929,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JToolBar" name="jToolBar2">
+        <Container class="javax.swing.JToolBar" name="jToolBarQuanLy">
           <Properties>
             <Property name="rollover" type="boolean" value="true"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -8432,7 +8432,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JToolBar" name="jToolBar3">
+        <Container class="javax.swing.JToolBar" name="jToolBarThongKe">
           <Properties>
             <Property name="rollover" type="boolean" value="true"/>
           </Properties>
@@ -8569,20 +8569,19 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel64" alignment="0" max="32767" attributes="0"/>
                                               <Component id="jLabel65" max="32767" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="dateTKNKT" min="-2" pref="37" max="-2" attributes="0"/>
-                                              </Group>
                                               <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="dateTKNBD" max="32767" attributes="0"/>
-                                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                          <Component id="cbTKTenNV" alignment="3" pref="37" max="32767" attributes="0"/>
-                                                          <Component id="jLabel45" alignment="3" max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="dateTKNBD" max="32767" attributes="0"/>
+                                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                                              <Component id="cbTKTenNV" alignment="3" pref="37" max="32767" attributes="0"/>
+                                                              <Component id="jLabel45" alignment="3" max="32767" attributes="0"/>
+                                                          </Group>
+                                                          <Component id="btnChartDoanhThu" alignment="0" max="32767" attributes="0"/>
                                                       </Group>
-                                                      <Component id="btnChartDoanhThu" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="dateTKNKT" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -9176,7 +9175,7 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <EmptySpace min="0" pref="1402" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="1405" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
