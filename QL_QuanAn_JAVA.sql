@@ -184,8 +184,8 @@ INSERT INTO NHANVIEN(MANHANVIEN, HOTEN, PHAI, NGAYSINH, DIACHI, SDT, NGAYVAOLAM,
 GO
 
 INSERT INTO TAIKHOAN(TENDANGNHAP, MANHANVIEN, TENHIENTHI, MATKHAU, TRANGTHAI) VALUES
-('admin', 'NV001', N'ADMIN', '1',  N'Admin'),
-('TaoPro', 'NV002', N'Công Cao', '1',  N'Nhân viên')
+('admin', 'NV001', N'ADMIN', 'c4ca4238a0b923820dcc509a6f75849b',  N'Admin'),
+('TaoPro', 'NV002', N'Công Cao', 'c4ca4238a0b923820dcc509a6f75849b',  N'Nhân viên')
 GO
 
 INSERT INTO LOAIMONAN(TENLOAIMONAN) VALUES
@@ -379,9 +379,9 @@ GO
 
 --Thay đổi mật khẩu
 CREATE PROC USP_ChangePassword
-    @userName VARCHAR(50),
-    @password NVARCHAR(100),
-    @newPassword NVARCHAR(100)
+    @userName VARCHAR(MAX),
+    @password NVARCHAR(MAX),
+    @newPassword NVARCHAR(MAX)
 AS
 BEGIN
     DECLARE @isRightPass INT = 0
@@ -436,7 +436,7 @@ CREATE PROC USP_ResetPassWord
 AS
     BEGIN
         UPDATE TAIKHOAN
-        SET MATKHAU = '1'
+        SET MATKHAU = 'c4ca4238a0b923820dcc509a6f75849b'
         WHERE TENDANGNHAP = @userName
     END
 GO
@@ -449,7 +449,7 @@ CREATE PROC USP_InsertAccount
 AS
     BEGIN
         INSERT INTO TAIKHOAN(TENDANGNHAP, MANHANVIEN, TENHIENTHI, MATKHAU, TRANGTHAI) VALUES
-        (@userName, @staffid, @displayName, '1', @status)
+        (@userName, @staffid, @displayName, 'c4ca4238a0b923820dcc509a6f75849b', @status)
     END
 GO
 --Lấy tài khoản bởi mã nhân viên

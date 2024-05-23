@@ -184,7 +184,7 @@ public class ChonMonAn extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã món", "Tên món", "DVT", "Đơn giá", "Hình"
+                "Mã", "Tên món", "DVT", "Đơn giá", "Hình"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -268,7 +268,7 @@ public class ChonMonAn extends javax.swing.JFrame {
         jLabelImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icon/f.jpg"))); // NOI18N
         jLabelImage.setPreferredSize(new java.awt.Dimension(240, 175));
 
-        jSpinnerCountAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jSpinnerCountAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -309,14 +309,16 @@ public class ChonMonAn extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextFieldSubmitOrder)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonDeleteBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonDeleteBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jTextFieldSubmitOrder))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -354,13 +356,16 @@ public class ChonMonAn extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSpinnerCountAdd)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonAddDish, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jSpinnerCountAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,9 +373,9 @@ public class ChonMonAn extends javax.swing.JFrame {
                 .addComponent(jTextFieldDishName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jSpinnerCountAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSpinnerCountAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAddDish, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -379,7 +384,7 @@ public class ChonMonAn extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 560));
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 240, 560));
 
         jButtonCreateBill.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButtonCreateBill.setForeground(new java.awt.Color(0, 0, 0));
@@ -493,7 +498,7 @@ public class ChonMonAn extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã món", "Tên món", "Đơn giá", "Số lượng"
+                "Mã", "Tên món", "Đơn giá", "SL"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -534,7 +539,7 @@ public class ChonMonAn extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldDishNameUpdate)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -556,9 +561,9 @@ public class ChonMonAn extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 500, 590));
+        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 510, 590));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 50, 500, 660));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 50, 520, 660));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icon/exit.png"))); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -666,7 +671,7 @@ public class ChonMonAn extends javax.swing.JFrame {
 
     private void settingJTableBillDetails() {
         jTableDishUpdate.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        int[] columnWidths = {75, 200, 100, 80}; // Chiều rộng mong muốn cho từng cột
+        int[] columnWidths = {60, 210, 140, 60}; // Chiều rộng mong muốn cho từng cột
         for (int i = 0; i < columnWidths.length; i++) {
             TableColumn column = jTableDishUpdate.getColumnModel().getColumn(i);
             column.setPreferredWidth(columnWidths[i]);
@@ -679,7 +684,7 @@ public class ChonMonAn extends javax.swing.JFrame {
 
     private void settingJTableDish() {
         jTableDishChoose.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        int[] columnWidths = {75, 220, 80, 100, 150}; // Chiều rộng mong muốn cho từng cột
+        int[] columnWidths = {60, 230, 80, 115, 150}; // Chiều rộng mong muốn cho từng cột
         for (int i = 0; i < columnWidths.length; i++) {
             TableColumn column = jTableDishChoose.getColumnModel().getColumn(i);
             column.setPreferredWidth(columnWidths[i]);
@@ -718,7 +723,14 @@ public class ChonMonAn extends javax.swing.JFrame {
         jTableDishChoose.getColumnModel().getColumn(4).setCellRenderer(new ImageTableCellRenderer());
 
         for (MonAnDTO monAnDTO : monAnDTOs) {
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/view/icon/f.jpg"));
+            String duongDanHinhAnh = monAnDTO.getHinhanh(); // Lấy đường dẫn hình ảnh từ danh sách món ăn
+
+            ImageIcon imageIcon;
+            if (duongDanHinhAnh != null && !duongDanHinhAnh.isEmpty()) {
+                imageIcon = new ImageIcon(getClass().getResource("/view/Images/" + duongDanHinhAnh));
+            } else {
+                imageIcon = new ImageIcon(getClass().getResource("/view/icon/food.jpg"));
+            }
             Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             ImageIcon scaledImageIcon = new ImageIcon(image);
             defaultTableModelDishChoose.addRow(new Object[]{monAnDTO.getMamonan(), monAnDTO.getTenmonan(), monAnDTO.getDvt(), Utils.VNDCurrencyFormat(monAnDTO.getDongia()), scaledImageIcon});
@@ -807,7 +819,14 @@ public class ChonMonAn extends javax.swing.JFrame {
         jTableDishChoose.getColumnModel().getColumn(4).setCellRenderer(new ImageTableCellRenderer());
 
         for (MonAnDTO monAnDTO : monAnDTOs) {
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/view/icon/f.jpg"));
+            String duongDanHinhAnh = monAnDTO.getHinhanh(); // Lấy đường dẫn hình ảnh từ danh sách món ăn
+
+            ImageIcon imageIcon;
+            if (duongDanHinhAnh != null && !duongDanHinhAnh.isEmpty()) {
+                imageIcon = new ImageIcon(getClass().getResource("/view/Images/" + duongDanHinhAnh));
+            } else {
+                imageIcon = new ImageIcon(getClass().getResource("/view/icon/food.jpg"));
+            }
             Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
             ImageIcon scaledImageIcon = new ImageIcon(image);
             defaultTableModelDishChoose.addRow(new Object[]{monAnDTO.getMamonan(), monAnDTO.getTenmonan(), monAnDTO.getDvt(), Utils.VNDCurrencyFormat(monAnDTO.getDongia()), scaledImageIcon});
@@ -870,9 +889,15 @@ public class ChonMonAn extends javax.swing.JFrame {
                 dishIdSelected = monAnDTO.getMamonan();
 
                 jTextFieldDishName.setText(monAnDTO.getTenmonan());
+                String duongDanHinhAnh = monAnDTO.getHinhanh(); // Lấy đường dẫn hình ảnh từ danh sách món ăn
 
-                ImageIcon imageIcon = new ImageIcon(getClass().getResource("/view/icon/f.jpg"));
-                Image image = imageIcon.getImage();
+                ImageIcon imageIcon;
+                if (duongDanHinhAnh != null && !duongDanHinhAnh.isEmpty()) {
+                    imageIcon = new ImageIcon(getClass().getResource("/view/Images/" + duongDanHinhAnh));
+                } else {
+                    imageIcon = new ImageIcon(getClass().getResource("/view/icon/food.jpg"));
+                }
+                Image image = imageIcon.getImage().getScaledInstance(243, 175, Image.SCALE_SMOOTH);
                 ImageIcon scaledImageIcon = new ImageIcon(image);
                 jLabelImage.setIcon(scaledImageIcon);
             } else {
@@ -896,7 +921,7 @@ public class ChonMonAn extends javax.swing.JFrame {
         home.reload();
         this.dispose();
     }
-    
+
     private void createBill() {
         // đổi kiểu dữ liệu ngayvao, ngayra HoaDonDTO thành kiểu Timestamp
         if (HoaDonDAO.getInstance().createBill(tableId, staffId, Timestamp.valueOf(LocalDateTime.now()), null, 0, 0)) {
@@ -947,7 +972,7 @@ public class ChonMonAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tạo hóa đơn không thành công!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private boolean checkDish(int idDish) {
         ArrayList<ChiTietHoaDonDTO> chiTietHoaDonDTOs = ChiTietHoaDonDAO.getInstance().getBillDetailsByBillId(billId);
         for (ChiTietHoaDonDTO chiTietHoaDonDTO : chiTietHoaDonDTOs) {
@@ -957,7 +982,7 @@ public class ChonMonAn extends javax.swing.JFrame {
         }
         return true;
     }
-    
+
     private void addDish() {
         try {
             if (dishIdSelected >= 0) {
@@ -994,7 +1019,7 @@ public class ChonMonAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void updateDish() {
         if (dishIdUpdate >= 0) {
             int count = Integer.parseInt(jSpinnerCountUpdate.getValue().toString());
@@ -1010,7 +1035,7 @@ public class ChonMonAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chưa chọn món ăn để cập nhật!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void removeDish() {
         if (dishIdUpdate >= 0) {
             if (JOptionPane.showConfirmDialog(this, "Xác nhận xóa món ăn này?", "Thông báo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION) {
@@ -1027,7 +1052,7 @@ public class ChonMonAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chưa chọn món ăn để xóa!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void deleteBill() {
         if (JOptionPane.showConfirmDialog(this, "Xác nhận hủy hóa đơn?", "Thông báo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION) {
             if (HoaDonDAO.getInstance().removeBillByBillId(billId)) {
@@ -1050,7 +1075,7 @@ public class ChonMonAn extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void submitBill() {
         JOptionPane.showMessageDialog(this, "Đặt món thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         closeForm();

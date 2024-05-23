@@ -28,7 +28,7 @@ public class DataProvider {
         return instance;
     }
 
-    private DataProvider() {
+    public DataProvider() {
     }
 
     public Connection getConnection() throws SQLException {

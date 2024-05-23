@@ -5,6 +5,8 @@
 package DAO;
 
 import DTO.TaiKhoanDTO;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,9 @@ public class TaiKhoanDAO {
     }
 
     public boolean Login(String tendangnhap, String matkhau) {
-        String query = "SELECT * FROM TAIKHOAN WHERE TAIKHOAN.TENDANGNHAP = ? AND TAIKHOAN.MATKHAU = ?";
-        Object[] parameters = {tendangnhap, matkhau};
+        String query = "SELECT * FROM TAIKHOAN WHERE BINARY_CHECKSUM(TENDANGNHAP) = BINARY_CHECKSUM(?) AND BINARY_CHECKSUM(MATKHAU) = BINARY_CHECKSUM(?)";
+        String hashedPassword = hashWithMD5(matkhau);
+        Object[] parameters = {tendangnhap, hashedPassword};
         try {
             ResultSet result = DataProvider.getInstance().executeQuery(query, parameters);
             return result.next();
@@ -37,6 +40,20 @@ public class TaiKhoanDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private String hashWithMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : messageDigest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public TaiKhoanDTO layTKTheoTen(String tendangnhap) throws SQLException {
@@ -63,16 +80,14 @@ public class TaiKhoanDAO {
 
     public boolean ThayDoiMK(String tendangnhap, String matkhaucu, String matkhaumoi) {
         String query = "{call USP_ChangePassword(?, ?, ?)}";
-        try (Connection conn = DataProvider.getInstance().getConnection(); CallableStatement stmt = conn.prepareCall(query)) {
-            stmt.setString(1, tendangnhap);
-            stmt.setString(2, matkhaucu);
-            stmt.setString(3, matkhaumoi);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
-        } catch (Exception e) {
+        Object[] parameters = {tendangnhap, matkhaucu, matkhaumoi};
+        try {
+            int result = DataProvider.getInstance().executeNonQuery(query, parameters);
+            return result > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public List<TaiKhoanDTO> layDSTK() throws SQLException {

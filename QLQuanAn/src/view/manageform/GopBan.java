@@ -134,32 +134,32 @@ public class GopBan extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Tên khu vực");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Mã bàn");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Tên bàn");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, -1, -1));
 
         jTextFieldOldArea.setEditable(false);
         jTextFieldOldArea.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldOldArea.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jTextFieldOldArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 160, 30));
+        jPanel1.add(jTextFieldOldArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 160, 30));
 
         jTextFieldOldId.setEditable(false);
         jTextFieldOldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldOldId.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jTextFieldOldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 80, 160, 30));
+        jPanel1.add(jTextFieldOldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 160, 30));
 
         jTextFieldOldName.setEditable(false);
         jTextFieldOldName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldOldName.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jTextFieldOldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 160, 30));
+        jPanel1.add(jTextFieldOldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 160, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 46, 610, 130));
 

@@ -2,12 +2,15 @@ package view.manageform;
 
 import DAO.TaiKhoanDAO;
 import DTO.TaiKhoanDTO;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DoiMatKhau extends javax.swing.JFrame {
+
     Home home;
     private TaiKhoanDTO login;
 
@@ -233,7 +236,7 @@ public class DoiMatKhau extends javax.swing.JFrame {
 
     private void jLabelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExitMouseClicked
         home.setVisible(true);
-       dispose();
+        dispose();
     }//GEN-LAST:event_jLabelExitMouseClicked
 
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
@@ -242,19 +245,27 @@ public class DoiMatKhau extends javax.swing.JFrame {
         String matkhaucu = txbMatKhauCu.getText().trim();
         String matkhaumoi = txbMatKhauMoi.getText().trim();
         String nhaplaimk = txbNhapLaiMK.getText().trim();
+        String hashedPasswordOld = hashWithMD5(matkhaucu);
+        String hashedPasswordNew = hashWithMD5(matkhaumoi);
+        String hashedPasswordretype = hashWithMD5(nhaplaimk);
 
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn đổi mật khẩu không!!!", "Thông báo", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-            if (mkLogin == null ? matkhaucu != null : !mkLogin.equals(matkhaucu)) {
-                JOptionPane.showMessageDialog(null, "Mật khẩu không đúng!!!");
+            if (mkLogin == null ? hashedPasswordOld != null : !mkLogin.equals(hashedPasswordOld)) {
+                JOptionPane.showMessageDialog(this, "Mật khẩu không đúng!!!");
+                return;
             } else {
-                if (matkhaumoi == null ? nhaplaimk != null : !matkhaumoi.equals(nhaplaimk)) {
-                    JOptionPane.showMessageDialog(null, "Mật khẩu mới và nhập lại mật khẩu không giống nhau!!!!!!");
+                if (hashedPasswordNew == null ? nhaplaimk != null : !hashedPasswordNew.equals(hashedPasswordretype)) {
+                    JOptionPane.showMessageDialog(this, "Mật khẩu mới và nhập lại mật khẩu không giống nhau!!!!!!");
                 } else {
-                    TaiKhoanDAO.getInstance().ThayDoiMK(tendangnhap, matkhaucu, matkhaumoi);
-                    JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công!!!");
-                    txbMatKhauCu.setText("");
-                    txbMatKhauMoi.setText("");
-                    txbNhapLaiMK.setText("");
+                    if (TaiKhoanDAO.getInstance().ThayDoiMK(tendangnhap, hashedPasswordOld, hashedPasswordNew)) {
+                        JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công!!!");
+                        txbMatKhauCu.setText("");
+                        txbMatKhauMoi.setText("");
+                        txbNhapLaiMK.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Đổi mật khẩu thất bại!!!");
+                        return;
+                    }
                 }
             }
         }
@@ -278,4 +289,18 @@ public class DoiMatKhau extends javax.swing.JFrame {
     private javax.swing.JPasswordField txbMatKhauMoi;
     private javax.swing.JPasswordField txbNhapLaiMK;
     // End of variables declaration//GEN-END:variables
+
+    private String hashWithMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : messageDigest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

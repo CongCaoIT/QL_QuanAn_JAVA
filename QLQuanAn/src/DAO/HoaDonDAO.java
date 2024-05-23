@@ -148,4 +148,19 @@ public class HoaDonDAO {
             return false;
         }
     }
+    
+    public boolean updatePaymentInvoices(int tableId, Timestamp dateOut, double total) {
+        String query = "UPDATE HOADON SET NGAYRA = ?, THANHTIEN = ? WHERE MAHOADON = ?";
+        try {
+            int result = DataProvider.getInstance().executeUpdate(query, dateOut, total, tableId);
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
