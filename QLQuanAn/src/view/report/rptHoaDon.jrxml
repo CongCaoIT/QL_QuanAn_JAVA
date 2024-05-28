@@ -72,9 +72,9 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="139" splitType="Stretch">
+		<band height="164" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="85" width="553" height="54" uuid="3b3fe9ea-cf07-4420-b2aa-50c046da811b"/>
+				<reportElement x="2" y="110" width="553" height="54" uuid="3b3fe9ea-cf07-4420-b2aa-50c046da811b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -102,13 +102,17 @@ WHERE
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="25" width="554" height="60" uuid="feecd1db-4e33-4493-ac03-bf047a61c307"/>
+				<reportElement x="84" y="25" width="470" height="85" uuid="feecd1db-4e33-4493-ac03-bf047a61c307"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16"/>
 				</textElement>
-				<text><![CDATA[ĐC: Số 11, Đường 27, Tân Kỳ Tân Quý, Tân Bình, Hồ Chí Minh
-SĐT: 0342 937 692   Email: tonyit2003@gmail.com]]></text>
+				<text><![CDATA[ĐC: Số 11, Đường 27, Phường Sơn Kỳ, Tân Phú, TP. HCM
+SĐT: 0123 456 789   Email: nhahangbaraties@gmail.com]]></text>
 			</staticText>
+			<image>
+				<reportElement x="2" y="27" width="82" height="83" uuid="0ec4c848-24c6-428d-9eba-2519c641f523"/>
+				<imageExpression><![CDATA["view\\qr\\qrcode.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

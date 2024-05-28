@@ -49,6 +49,9 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import view.loginform.login;
@@ -1140,7 +1143,7 @@ public class Home extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã HD", "Tên bàn", "Tên NV", "Ngày vào", "Ngày ra", "Tổng tiền"
+                "Mã HD", "Tên bàn", "Tên NV", "Ngày vào", "Ngày ra", "Tổng (VAT 10%)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1213,7 +1216,7 @@ public class Home extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Món ăn", "Đơn giá", "Số lượng", "Thành tiền"
+                "Món ăn", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -5140,7 +5143,7 @@ public class Home extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã HD", "Tên bàn", "Tên NV", "Ngày vào", "Ngày ra", "Tổng tiền"
+                "Mã HD", "Tên bàn", "Tên NV", "Ngày vào", "Ngày ra", "Tổng (VAT 10%)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -5213,7 +5216,7 @@ public class Home extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Món ăn", "Đơn giá", "Số lượng", "Thành tiền"
+                "Món ăn", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -5961,7 +5964,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyMonAnActionPerformed
 
     private void btnLuuMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuMonAnActionPerformed
-        int maLoai = loaimonan.layMaTheoTenDcChon(cbLoaiMon.getSelectedItem().toString());
+         int maLoai = loaimonan.layMaTheoTenDcChon(cbLoaiMon.getSelectedItem().toString());
         int mamon = Integer.parseInt(txbMaMonAn.getText().trim());
         String tenMon = txbTenMonAn.getText();
         String dvt = txbDVT.getText();
@@ -7035,10 +7038,11 @@ public class Home extends javax.swing.JFrame {
             RightRenderer rightRenderer = new RightRenderer();
 
             // Áp dụng CenterRenderer cho các cột 1 và 2
-            tableTKCTHD.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            tableTKCTHD_NV.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
-            tableTKCTHD.getColumnModel().getColumn(2).setCellRenderer(new CurrencyRenderer());
-            tableTKCTHD.getColumnModel().getColumn(3).setCellRenderer(new CurrencyRenderer());
+            tableTKCTHD_NV.getColumnModel().getColumn(2).setCellRenderer(new CurrencyRenderer());
+            tableTKCTHD_NV.getColumnModel().getColumn(3).setCellRenderer(new CurrencyRenderer());
+
         }
     }//GEN-LAST:event_tableTKDSHD_NVMouseClicked
 
@@ -7049,7 +7053,7 @@ public class Home extends javax.swing.JFrame {
 
             try {
                 // Gọi hàm loadTKDSHD để cập nhật dữ liệu cho trang mới
-                loadTKDSHD();
+                loadTKDSHD_NV();
             } catch (SQLException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -7065,7 +7069,7 @@ public class Home extends javax.swing.JFrame {
 
             try {
                 // Gọi hàm loadTKDSHD để cập nhật dữ liệu cho trang mới
-                loadTKDSHD();
+                loadTKDSHD_NV();
             } catch (SQLException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -7085,7 +7089,7 @@ public class Home extends javax.swing.JFrame {
 
             try {
                 // Gọi hàm loadTKDSHD để cập nhật dữ liệu cho trang mới
-                loadTKDSHD();
+                loadTKDSHD_NV();
             } catch (SQLException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -7101,7 +7105,7 @@ public class Home extends javax.swing.JFrame {
 
             try {
                 // Gọi hàm loadTKDSHD để cập nhật dữ liệu cho trang mới
-                loadTKDSHD();
+                loadTKDSHD_NV();
             } catch (SQLException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -7122,7 +7126,7 @@ public class Home extends javax.swing.JFrame {
 
             try {
                 // Gọi hàm loadTKDSHD để cập nhật dữ liệu cho trang mới
-                loadTKDSHD();
+                loadTKDSHD_NV();
             } catch (SQLException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -7145,7 +7149,7 @@ public class Home extends javax.swing.JFrame {
 
             try {
                 // Gọi hàm updateTableData để cập nhật dữ liệu trang mới
-                updateTableData(currentPage, rowsPerPage);
+                updateTableDataNV(currentPage, rowsPerPage);
             } catch (SQLException ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -8112,7 +8116,7 @@ public class Home extends javax.swing.JFrame {
         }
 
         // Thiết lập chiều rộng của từng cột
-        int[] columnWidths = {70, 80, 180, 110, 110, 150};
+        int[] columnWidths = {70, 120, 180, 110, 110, 160};
         for (int i = 0; i < columnWidths.length; i++) {
             TableColumn column = tableTKDSHD.getColumnModel().getColumn(i);
             column.setPreferredWidth(columnWidths[i]);
@@ -8126,6 +8130,52 @@ public class Home extends javax.swing.JFrame {
 
         // Áp dụng renderer cho cột số tiền
         tableTKDSHD.getColumnModel().getColumn(5).setCellRenderer(new CurrencyRenderer());
+
+        // Hiển thị tổng doanh thu của trang hiện tại
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        txbDoanhThu.setText(df.format(tongDoanhThu()));
+        txbDoanhThuChart.setText(df.format(tongDoanhThu()));
+    }
+
+    private void updateTableDataNV(int currentPage, int rowsPerPage) throws SQLException {
+        // Lấy chỉ số bắt đầu và kết thúc của dữ liệu trang hiện tại       
+        int startIndex = (currentPage - 1) * rowsPerPage;
+        int endIndex = Math.min(startIndex + rowsPerPage, listHD.size());
+
+        // Xóa dữ liệu hiện tại trên bảng
+        DefaultTableModel model = (DefaultTableModel) tableTKDSHD_NV.getModel();
+        model.setRowCount(0);
+
+        // Hiển thị dữ liệu của trang hiện tại trên bảng
+        for (int i = startIndex; i < endIndex; i++) {
+            HoaDonDTO hd = listHD.get(i);
+
+            String tenNhanVien = "";
+            for (NhanVienDTO nv : listNV) {
+                if (nv.getManhanvien().equals(hd.getManhanvien())) {
+                    tenNhanVien = nv.getHoten();
+                    break;
+                }
+            }
+            Object[] row = {hd.getMahoadon(), ("Bàn " + hd.getMaban()), tenNhanVien, hd.getNgayvao(), hd.getNgayra(), hd.getThanhtien()};
+            model.addRow(row);
+        }
+
+        // Thiết lập chiều rộng của từng cột
+        int[] columnWidths = {70, 80, 180, 110, 110, 150};
+        for (int i = 0; i < columnWidths.length; i++) {
+            TableColumn column = tableTKDSHD_NV.getColumnModel().getColumn(i);
+            column.setPreferredWidth(columnWidths[i]);
+        }
+
+        // Thêm renderer cho cột ngày sinh và lương cơ bản
+        tableTKDSHD_NV.getColumnModel().getColumn(0).setCellRenderer(new CenterRenderer());
+        tableTKDSHD_NV.getColumnModel().getColumn(1).setCellRenderer(new CenterRenderer());
+        tableTKDSHD_NV.getColumnModel().getColumn(3).setCellRenderer(new DateRenderer());
+        tableTKDSHD_NV.getColumnModel().getColumn(4).setCellRenderer(new DateRenderer());
+
+        // Áp dụng renderer cho cột số tiền
+        tableTKDSHD_NV.getColumnModel().getColumn(5).setCellRenderer(new CurrencyRenderer());
 
         // Hiển thị tổng doanh thu của trang hiện tại
         DecimalFormat df = new DecimalFormat("#,### VND");
@@ -8668,12 +8718,8 @@ public class Home extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tableMonAn.getModel();
         model.setRowCount(0);
 
-        // Sử dụng NumberFormat để định dạng giá tiền
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-
         for (MonAnDTO k : listMA) {
-            String formattedPrice = currencyFormat.format(k.getDongia());
-            model.addRow(new Object[]{k.getMamonan(), k.getTenmonan(), k.getDvt(), formattedPrice});
+            model.addRow(new Object[]{k.getMamonan(), k.getTenmonan(), k.getDvt(), k.getDongia()});
         }
 
         // lấy tên loại món vào combobox
@@ -8691,7 +8737,7 @@ public class Home extends javax.swing.JFrame {
 
         tableMonAn.getColumnModel().getColumn(0).setCellRenderer(new CenterTableCellRenderer());
         tableMonAn.getColumnModel().getColumn(2).setCellRenderer(new CenterTableCellRenderer());
-        tableMonAn.getColumnModel().getColumn(3).setCellRenderer(new RightTableCellRenderer());
+        tableMonAn.getColumnModel().getColumn(3).setCellRenderer(new CurrencyRenderer());
 
         txbAnh.setEnabled(false);
     }
