@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import view.manageform.Home;
-import view.signUpform.signUp;
 
 public class login extends javax.swing.JFrame {
 

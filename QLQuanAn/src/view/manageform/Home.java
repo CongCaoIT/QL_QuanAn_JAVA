@@ -1,7 +1,6 @@
 package view.manageform;
 
 import DAO.BanDAO;
-import DAO.CenterTableCellRenderer;
 import DAO.ChiTietHoaDonDAO;
 import DAO.ChiTietPhieuNhapDAO;
 import DAO.CongThucDAO;
@@ -12,10 +11,10 @@ import DAO.NguyenLieuDAO;
 import DAO.NhaCungCapDAO;
 import DAO.NhanVienDAO;
 import DAO.PhieuNhapDAO;
-import DAO.RightTableCellRenderer;
 import DAO.TaiKhoanDAO;
 import DAO.ThongTinDatBanDAO;
 import DTO.BanDTO;
+import DTO.CenterTableCellRenderer;
 import DTO.ChiTietHoaDonDTO;
 import DTO.ChiTietPhieuNhapDTO;
 import DTO.CongThucDTO;
@@ -27,6 +26,7 @@ import DTO.NhaCungCapDTO;
 import DTO.NhanVienDTO;
 import DTO.NumToVND;
 import DTO.PhieuNhapDTO;
+import DTO.RightTableCellRenderer;
 import DTO.TaiKhoanDTO;
 import DTO.ThongTinDatBanDTO;
 import DTO.Utils;
@@ -49,15 +49,11 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import view.loginform.login;
 import java.sql.*;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,7 +69,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,7 +90,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Home extends javax.swing.JFrame {
 
-    //<editor-fold defaultstate="collapsed" desc="Method TaoPro Code">
+    //<editor-fold defaultstate="collapsed" desc="Method Code">
     private TaiKhoanDTO login;
 
     public TaiKhoanDTO getLogin() {
@@ -4862,6 +4857,11 @@ public class Home extends javax.swing.JFrame {
         btnXuatPhieu.setForeground(new java.awt.Color(0, 102, 102));
         btnXuatPhieu.setText("Xuất Phiếu");
         btnXuatPhieu.setEnabled(false);
+        btnXuatPhieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatPhieuActionPerformed(evt);
+            }
+        });
 
         jLabel155.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel155.setForeground(new java.awt.Color(0, 0, 0));
@@ -5529,7 +5529,7 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //<editor-fold defaultstate="collapsed" desc="Event Các Nút">
+    //<editor-fold defaultstate="collapsed" desc="Event">
     private void jLabelThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelThoatMouseClicked
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn thoát chương trình không?", "Thông báo", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
             System.exit(0);
@@ -7164,6 +7164,10 @@ public class Home extends javax.swing.JFrame {
     private void jLabel10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabel10ActionPerformed
         exportBill();
     }//GEN-LAST:event_jLabel10ActionPerformed
+
+    private void btnXuatPhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatPhieuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXuatPhieuActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Giao diện (Không code được trong này)">
@@ -7663,7 +7667,7 @@ public class Home extends javax.swing.JFrame {
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Phương thức định dạng dd/MM/yyyy và 100.000 VND">
+    //<editor-fold defaultstate="collapsed" desc="Phương thức">
     private void loadMonAn() {
         txbMaMonAn.setText("");
         txbTenMonAn.setText("");
@@ -7721,9 +7725,7 @@ public class Home extends javax.swing.JFrame {
             return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         }
     }
-
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Phương thức TaoPro Code">
+    
     public void loadDSTK() throws SQLException {
         List<TaiKhoanDTO> listTK = TaiKhoanDAO.getInstance().layDSTK();
         DefaultTableModel model = (DefaultTableModel) tableDSTK.getModel();
@@ -8237,7 +8239,7 @@ public class Home extends javax.swing.JFrame {
             String tenNhanVien = "";
             for (NhanVienDTO nv : listNV) {
                 if (nv.getManhanvien().equals(hd.getManhanvien())) {
-                    tenNhanVien = nv.getHoten();
+                        tenNhanVien = nv.getHoten();
                     break;
                 }
             }
@@ -8645,9 +8647,6 @@ public class Home extends javax.swing.JFrame {
         loadDSPN();
     }
 
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Phương thức ThaoTo Code">
-    //Loại món ăn & món ăn & bàn & công thức --- THẢO
     public void showLoaiMonAn() {
         listLMA = loaimonan.layDSLoaiMonAn();
 
@@ -8900,8 +8899,6 @@ public class Home extends javax.swing.JFrame {
         jpanelDSBan.repaint();
     }
 
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Phương thức Tony Code">
     private void exportBill() {
         XuatHoaDon xuatHoaDon = new XuatHoaDon(idTable, this);
         xuatHoaDon.setVisible(true);

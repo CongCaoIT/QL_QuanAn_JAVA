@@ -11,7 +11,6 @@ import DTO.HoaDonDTO;
 import DTO.MonAnDTO;
 import DTO.NumToVND;
 import DTO.Utils;
-import com.ctc.wstx.shaded.msv_core.util.Util;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -21,17 +20,12 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- *
- * @author LeHuuTai
- */
 public class XuatHoaDon extends javax.swing.JFrame {
 
     private int idTable = -1;
@@ -41,9 +35,6 @@ public class XuatHoaDon extends javax.swing.JFrame {
     private double total = 0;
     private int billId = -1;
 
-    /**
-     * Creates new form XuatHoaDon
-     */
     public XuatHoaDon(int idTable, Home home) {
         initComponents();
         setLocationRelativeTo(null);
@@ -239,7 +230,6 @@ public class XuatHoaDon extends javax.swing.JFrame {
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         try {
-            // TODO add your handling code here:
             closeForm();
         } catch (SQLException ex) {
             Logger.getLogger(XuatHoaDon.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,7 +238,6 @@ public class XuatHoaDon extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         try {
-            // TODO add your handling code here:
             closeForm();
         } catch (SQLException ex) {
             Logger.getLogger(XuatHoaDon.class.getName()).log(Level.SEVERE, null, ex);
@@ -256,7 +245,6 @@ public class XuatHoaDon extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void jButtonExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportActionPerformed
-        // TODO add your handling code here:
         exportBill();
     }//GEN-LAST:event_jButtonExportActionPerformed
 

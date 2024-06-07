@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
 import DTO.BanDTO;
@@ -10,10 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- *
- * @author TAOPRO
- */
 public class BanDAO {
 
     private static BanDAO instance;
@@ -106,7 +98,7 @@ public class BanDAO {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, soLuongNguoi);
             pstmt.setString(2, trangThai);
-            int rowsAffected = pstmt.executeUpdate(); // Thực hiện truy vấn INSERT và lấy số lượng hàng bị ảnh hưởng
+            int rowsAffected = pstmt.executeUpdate(); 
             if (rowsAffected > 0) {
                 return true;
             }

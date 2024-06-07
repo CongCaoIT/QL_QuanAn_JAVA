@@ -5,8 +5,6 @@ import DTO.TaiKhoanDTO;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DoiMatKhau extends javax.swing.JFrame {

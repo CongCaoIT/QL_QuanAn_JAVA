@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DTO;
 
-/**
- *
- * @author LeHuuTai
- */
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,14 +33,6 @@ public class NumToVND {
             "tỷ tỷ"
     );
 
-    // Algorithm section
-    /**
-     * turn triplet digits into vietnamese words
-     *
-     * @param triplet a string of 3 digit integer
-     * @param showZeroHundred whether to show Zero hundred
-     * @return vietnamese string represent the input number
-     */
     private static String readTriple(String triplet, boolean showZeroHundred) {
         List<Integer> digitList = stringToInt(triplet);
 
@@ -174,16 +158,6 @@ public class NumToVND {
         return result;
     }
 
-    /**
-     * determine whether to show zero-hundred text
-     *
-     * Explain: count the amount of consecutive "000" at the end of the number
-     * and compare it with number length
-     *
-     * @param groupOfThousand number represented in group of 3 digits of each
-     * 1000^n
-     * @return a boolean
-     */
     private static boolean doShowZeroHundred(List<String> groupOfThousand) {
         int count = 0;
         int i = groupOfThousand.size() - 1;
